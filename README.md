@@ -6,8 +6,11 @@
 <img src="./readme/title2.svg"/>
 
 > Minedev, a VS Code extension, revolutionizes programming by providing example code blocks instead of directly providing code solutions.
-> Minedev is an extension that has the ability to have a full context of the whole folder structure of a specific project.
+>
+> Minedev has the ability to have full context of the whole folder structure of a specific project.
+>
 > Minedev has a chat feature that allows developers to chat with an AI trained model.
+>
 > This approach prevents developers from copying and pasting code without understanding the deep details of what they are implementing.
 
 ### User Stories
