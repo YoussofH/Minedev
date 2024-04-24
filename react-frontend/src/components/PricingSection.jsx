@@ -6,8 +6,8 @@ import Button from './Button';
 
 const PricingSection = () => {
     return (
-        <div className='flex justify-center mt-20'>
-            <div className="border lg:mx-20 mx-8 flex justify-center rounded-xl flex-col items-center lg:p-20 p-10 gap-7">
+        <div className='flex justify-center mt-10'>
+            <div className="border lg:mx-20 mx-8 flex justify-center rounded-xl flex-col items-center lg:p-10 p-5 gap-7">
                 <div className='bg-slate-100 rounded-full px-3 py-1 border-2 border-slate-400'>
                     <FaAsterisk size={22} />
                 </div>
