@@ -19,7 +19,7 @@ export const navItems = [
 
 export const features = [
     {
-        icon: <PiDotsThreeFill />,
+        icon: <PiDotsThreeFill size={22}/>,
         tagText: "Smart Prompts",
         title: "Easy Integration, Effortless Execution",
         image: feature1Image,
@@ -27,7 +27,7 @@ export const features = [
             "Transform web tasks with our AI-powered toolkit. Create browser automations as intutively as writing a simple prompt. We'll take care of the code for you.",
     },
     {
-        icon: <PiWaves />,
+        icon: <PiWaves size={22}/>,
         tagText: "Easy-breezy",
         title: "Say Goodbye to Selectors",
         image: feature2Image,
@@ -35,10 +35,10 @@ export const features = [
             "Unlike traditional methods that falter when sites change, our intelligent platform dynamically adjusts, ensuring your automation continues uninterrupted.",
     },
     {
-        icon: <TbBulb />,
+        icon: <TbBulb size={22}/>,
         tagText: "Right Choice",
         title: "You Chose the Right Solution",
-        iimage: feature3Image,
+        image: feature3Image,
         description:
             "No more face hours of debugging a bunch of copy and pasted code blocks that you do not know how they function deep inside.",
     },

@@ -5,8 +5,8 @@ import Button from './Button';
 
 const Navbar = () => {
     return (
-        <div className="container flex flex-row justify-center my-3 py-2 backdrop:blur-lg mx-auto sticky top-3 z-50 ">
-            <nav className="shadow-lg flex items-center gap-3 px-3 py-3 border text-white rounded-xl w-full lg:w-2/3 justify-between mx-6">
+        <div className="container flex flex-row justify-center my-3 py-2 backdrop:blur-lg mx-auto sticky top-3 z-50">
+            <nav className="shadow-lg flex items-center gap-3 px-3 py-3 border text-white rounded-xl w-full lg:w-2/3 justify-between mx-6 bg-white">
                 <div className="w-16 logo px-3 cursor-pointer ">
                     <img src={logo} className="" alt="" />
                 </div>
