@@ -48,6 +48,7 @@ export const pricingOptions = [
     {
         title: "Free",
         price: "$0",
+        tip: "Affordable and Essential",
         features: [
             "Private board sharing",
             "5 Gb Storage",
@@ -58,6 +59,7 @@ export const pricingOptions = [
     {
         title: "Pro",
         price: "$10",
+        tip: "Flexible and Scalable",
         features: [
             "Private board sharing",
             "10 Gb Storage",
@@ -68,6 +70,7 @@ export const pricingOptions = [
     {
         title: "Enterprise",
         price: "$200",
+        tip: "Customized for Your Business",
         features: [
             "Private board sharing",
             "Unlimited Storage",
