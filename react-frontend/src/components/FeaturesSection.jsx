@@ -6,7 +6,7 @@ import { features } from '../constants';
 const FeaturesSection = () => {
     return (
         <div className='flex justify-center mt-20'>
-            <div className="border w-2/3 flex justify-center rounded-xl flex-col items-center lg:p-20 p-10 gap-7">
+            <div className="border lg:w-2/3 mx-8 flex justify-center rounded-xl flex-col items-center lg:p-20 p-10 gap-7">
                 <div className='bg-slate-100 rounded-full px-3 py-1 border-2 border-slate-400'>
                     <RiSparkling2Fill size={22} />
                 </div>
@@ -18,8 +18,8 @@ const FeaturesSection = () => {
                 </p>
                 <div className="flex justify-center gap-10 flex-col">
                     {features.map((feature, index) => (
-                        index % 2 == 0 ? (
-                            <div key={index} className="flex justify-center bg-neutral-900 rounded-xl pt-10 pl-16 gap-10">
+                        index % 2 === 0 ? (
+                            <div key={index} className="flex justify-center bg-neutral-900 rounded-2xl pt-10 pl-16 gap-10 overflow-hidden">
                                 <div className="flex flex-col gap-5 justify-center">
                                     <div className='bg-slate-100 rounded-full px-3 py-1 border-2 border-slate-400 flex flex-row gap-3 w-44 justify-center items-center'>
                                         {feature.icon}
@@ -40,7 +40,7 @@ const FeaturesSection = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div key={index} className="flex justify-center bg-neutral-900 rounded-xl pt-10 pr-16 gap-10">
+                            <div key={index} className="flex justify-center bg-neutral-900 rounded-xl pt-10 pr-16 gap-10 overflow-hidden">
                                 <div>
                                     <img src={feature.image} className='h-full' alt="code feature" />
                                 </div>

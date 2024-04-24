@@ -4,7 +4,7 @@ import Button from './Button'
 const HeroSection = () => {
     return (
         <div className='flex justify-center mt-8'>
-            <div className="border w-2/3 flex justify-center rounded-xl flex-col items-center lg:p-20 p-10 gap-7 bg-gray-200">
+            <div className="border lg:w-2/3 mx-8 flex justify-center rounded-xl flex-col items-center lg:p-20 p-10 gap-7 bg-gray-100">
                 <h1 class="lg:text-6xl md:text-5xl text-4xl font-medium leading-none tracking-wide text-gray-900 text-center">
                     Leverage the power of AI in your web automation
                 </h1>
