@@ -6,7 +6,7 @@ import { FaAsterisk } from "react-icons/fa6";
 import { PiStarFour } from "react-icons/pi";
 import { MdArrowOutward } from "react-icons/md";
 
-import heroImage from "../assets/heroImage.jpg";
+//import heroImage from "../assets/heroImage.jpg";
 import feature1Image from "../assets/feature1Image.png";
 import feature2Image from "../assets/feature1Image.png";
 import feature3Image from "../assets/feature1Image.png";
