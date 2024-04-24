@@ -6,10 +6,10 @@ import { FaAsterisk } from "react-icons/fa6";
 import { PiStarFour } from "react-icons/pi";
 import { MdArrowOutward } from "react-icons/md";
 
-import heroImage from "../assets/profile-pictures/heroImage.jpg";
-import feature1Image from "../assets/profile-pictures/feature1Image.jpg";
-import feature2Image from "../assets/profile-pictures/feature2Image.jpg";
-import feature3Image from "../assets/profile-pictures/feature3Image.jpg";
+import heroImage from "../assets/heroImage.jpg";
+import feature1Image from "../assets/feature1Image.png";
+import feature2Image from "../assets/feature1Image.png";
+import feature3Image from "../assets/feature1Image.png";
 
 export const navItems = [
     { label: "About", href: "#" },
