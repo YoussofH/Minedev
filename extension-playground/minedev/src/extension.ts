@@ -14,12 +14,12 @@ export function activate(context: vscode.ExtensionContext) {
             enableScripts: true
         });
 
-        const scriptPath= panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "script.js"));
+        const scriptPath = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "script.js"));
 
         const cssStyle = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "vscode.css"));
         const imgSrc = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "github.png"));
 
-        panel.webview.html =    `<!DOCTYPE html>
+        panel.webview.html = `<!DOCTYPE html>
                                 <html lang="en">
                                 <head>
                                     <meta charset="UTF-8">
@@ -34,9 +34,11 @@ export function activate(context: vscode.ExtensionContext) {
                                         <input />
                                         <code>Code</code>
                                         <textarea></textarea>
-                                        <button>Submit</button>
+                                        <p id="count">0</p>
+                                        <button onclick="updateCount()">Count</button>
                                     </div>
                                 </div>
+                                <script src="${scriptPath}"></script>
                                 </body>
                                 </html>`;
 
