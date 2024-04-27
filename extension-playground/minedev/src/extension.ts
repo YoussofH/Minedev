@@ -14,8 +14,9 @@ export function activate(context: vscode.ExtensionContext) {
             enableScripts: true
         });
 
-        const cssStyle = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "vscode.css"));
+        const scriptPath= panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "script.js"));
 
+        const cssStyle = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "vscode.css"));
         const imgSrc = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "github.png"));
 
         panel.webview.html =    `<!DOCTYPE html>
