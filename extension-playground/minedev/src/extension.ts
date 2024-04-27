@@ -10,7 +10,8 @@ export function activate(context: vscode.ExtensionContext) {
         let panel = vscode.window.createWebviewPanel("webview", "Web View", {
             viewColumn: vscode.ViewColumn.One,
         }, {
-            localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, "media")]
+            localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, "media")],
+            enableScripts: true
         });
 
         const cssStyle = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "vscode.css"));
