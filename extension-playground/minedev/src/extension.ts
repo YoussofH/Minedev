@@ -35,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
                                         <code>Code</code>
                                         <textarea></textarea>
                                         <p id="count">0</p>
-                                        <button onclick="updateCount()">Count</button>
+                                        <button onclick="changeCount()">Count</button>
                                     </div>
                                 </div>
                                 <script src="${scriptPath}"></script>
