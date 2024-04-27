@@ -9,6 +9,8 @@ export function activate(context: vscode.ExtensionContext) {
 
         let panel = vscode.window.createWebviewPanel("webview", "Web View", {
             viewColumn: vscode.ViewColumn.One,
+        }, {
+            localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, "media")]
         });
 
         // will set the html here
