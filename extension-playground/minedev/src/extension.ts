@@ -1,51 +1,26 @@
+// The module 'vscode' contains the VS Code extensibility API
+// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-
+// This method is called when your extension is activated
+// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-    console.log('Congratulations, your extension "Webview" is up and running now');
+	// Use the console to output diagnostic information (console.log) and errors (console.error)
+	// This line of code will only be executed once when your extension is activated
+	console.log('Congratulations, your extension "minedev" is now active!');
 
-    let webview = vscode.commands.registerCommand('minedev.webview', () => {
+	// The command has been defined in the package.json file
+	// Now provide the implementation of the command with registerCommand
+	// The commandId parameter must match the command field in package.json
+	let disposable = vscode.commands.registerCommand('minedev.helloWorld', () => {
+		// The code you place here will be executed every time your command is executed
+		// Display a message box to the user
+		vscode.window.showInformationMessage('Hello World from Minedev!');
+	});
 
-        let panel = vscode.window.createWebviewPanel("webview", "Web View", {
-            viewColumn: vscode.ViewColumn.One,
-        }, {
-            localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, "media")],
-            enableScripts: true
-        });
-
-        const scriptPath = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "script.js"));
-
-        const cssStyle = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "vscode.css"));
-        const imgSrc = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "github.png"));
-
-        panel.webview.html = `<!DOCTYPE html>
-                                <html lang="en">
-                                <head>
-                                    <meta charset="UTF-8">
-                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                    <link rel="stylesheet" type="text/css" href="${cssStyle}" />
-                                </head>
-                                <body>
-                                <div class="container">
-                                    <img src="${imgSrc}" width="200" />
-                                    <div class="form">
-                                        <code>Title</code>
-                                        <input />
-                                        <code>Code</code>
-                                        <textarea></textarea>
-                                        <p id="count">0</p>
-                                        <button onclick="changeCount()">Count</button>
-                                    </div>
-                                </div>
-                                <script src="${scriptPath}"></script>
-                                </body>
-                                </html>`;
-
-    });
-
-    context.subscriptions.push(webview);
+	context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() { }
+export function deactivate() {}

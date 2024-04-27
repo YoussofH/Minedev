@@ -1,7 +1,7 @@
 {
   "name": "minedev",
-  "displayName": "minedev-test",
-  "description": "A vs code extension that prevents developers from copying and pasting code blindly",
+  "displayName": "Minedev",
+  "description": "A vscode extension that prevents programmers from copying code blindly.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.88.0"
@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "minedev.webview",
-        "title": "Open Web View"
+        "command": "minedev.helloWorld",
+        "title": "Hello World"
       }
     ]
   },
