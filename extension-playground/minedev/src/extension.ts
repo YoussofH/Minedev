@@ -13,12 +13,31 @@ export function activate(context: vscode.ExtensionContext) {
             localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, "media")]
         });
 
-        // will set the html here
-        panel.webview.html = `<h1>This is Heading 1</h1>
-                                <h2>This is Heading 2</h2>
-                                <h3>This is Heading 3</h3>
-                                <h4>This is Heading 4</h4>
-                                <h5>This is Heading 5</h5>`;
+        const cssStyle = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "vscode.css"));
+
+        const imgSrc = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "media", "github.png"));
+
+        panel.webview.html =    `<!DOCTYPE html>
+                                <html lang="en">
+                                <head>
+                                    <meta charset="UTF-8">
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                    <link rel="stylesheet" type="text/css" href="${cssStyle}" />
+                                </head>
+                                <body>
+                                <div class="container">
+                                    <img src="${imgSrc}" width="200" />
+                                    <div class="form">
+                                        <code>Title</code>
+                                        <input />
+                                        <code>Code</code>
+                                        <textarea></textarea>
+                                        <button>Submit</button>
+                                    </div>
+                                </div>
+                                </body>
+                                </html>`;
+
     });
 
     context.subscriptions.push(webview);
