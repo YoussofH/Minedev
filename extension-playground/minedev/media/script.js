@@ -1,3 +1,3 @@
 function changeCount() {
-    document.getElementById("count").textContent = document.getElementById("count").textContent + 1;
+    document.getElementById("count").textContent = parseInt(document.getElementById("count").textContent) + 1;
 } 
