@@ -5,7 +5,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     console.log('Congratulations, your extension "Webview" is up and running now');
 
-    let webview = vscode.commands.registerCommand('helloworld.webview', () => {
+    let webview = vscode.commands.registerCommand('minedev.webview', () => {
 
         let panel = vscode.window.createWebviewPanel("webview", "Web View", {
             viewColumn: vscode.ViewColumn.One,

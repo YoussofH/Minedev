@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "minedev.helloWorld",
-        "title": "Hello World"
+        "command": "minedev.webview",
+        "title": "Open Web View"
       }
     ]
   },
