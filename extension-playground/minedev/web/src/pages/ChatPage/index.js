@@ -4,9 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
-const NativeElementsPage_1 = __importDefault(require("./pages/NativeElementsPage"));
-const App = () => {
-    return (<NativeElementsPage_1.default />);
+const ChatPage = () => {
+    return (<div>ChatPage</div>);
 };
-exports.default = App;
-//# sourceMappingURL=App.js.map
+exports.default = ChatPage;
+//# sourceMappingURL=index.js.map
