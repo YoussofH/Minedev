@@ -2,18 +2,31 @@ import React from 'react';
 import { WiStars } from "react-icons/wi";
 import { IoSend } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
+import { RiRobot2Line } from "react-icons/ri";
 
 const ChatPage = () => {
     return (
         <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
                 <div className="flex flex-col justify-start gap-2 bg-gray-300 p-5">
-                    <img className="w-6 h-6 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar" />
+                    <div className='h-7 w-7 rounded-full border-2 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line /></div>
                     <p>Welcome to Minedev! How can I assist you today?</p>
                 </div>
                 <div className="flex flex-col justify-start gap-2 p-5">
-                    <img className="w-6 h-6 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar" />
-                    <p>Make a python fibonaci functions</p>
+                    <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar" />
+                    <p>Make a python Fibonacci function</p>
+                </div>
+                <div className="flex flex-col justify-start gap-2 bg-gray-300 p-5">
+                    <div className='h-7 w-7 rounded-full border-2 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line /></div>
+                    <p>Sure!</p>
+                    <h1>Recursive Fibonacci Function</h1>
+                    <p>A recursive function defines itself by calling itself. This approach directly reflects the mathematical definition of the Fibonacci sequence. Here's an example:
+
+                        Python
+
+                        def fibonacci_recursive(n):
+
+                    </p>
                 </div>
             </div>
 
