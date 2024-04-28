@@ -8,7 +8,6 @@ import HomePage from './pages/HomePage';
 const App = () => {
     return (
         <BrowserRouter>
-            <h1>hello</h1>
             <Layout />
             <Routes>
                 <Route path='/' element={<HomePage />} />

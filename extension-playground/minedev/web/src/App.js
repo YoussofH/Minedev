@@ -11,7 +11,6 @@ const ChatPage_1 = __importDefault(require("./pages/ChatPage"));
 const HomePage_1 = __importDefault(require("./pages/HomePage"));
 const App = () => {
     return (<react_router_dom_1.BrowserRouter>
-            <h1>hello</h1>
             <Layout_1.default />
             <react_router_dom_1.Routes>
                 <react_router_dom_1.Route path='/' element={<HomePage_1.default />}/>
