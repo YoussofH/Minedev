@@ -6,15 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const react_router_dom_1 = require("react-router-dom");
 const NativeElementsPage_1 = __importDefault(require("./pages/NativeElementsPage"));
-const Layout_1 = __importDefault(require("./pages/Layout"));
 const ChatPage_1 = __importDefault(require("./pages/ChatPage"));
 const HomePage_1 = __importDefault(require("./pages/HomePage"));
 const vscode = acquireVsCodeApi();
 const App = () => {
     return (<react_router_dom_1.BrowserRouter>
-            <Layout_1.default />
             <react_router_dom_1.Routes>
-                <react_router_dom_1.Route path='/' element={<HomePage_1.default />}/>
+                <react_router_dom_1.Route path='*' element={<HomePage_1.default />}/>
                 <react_router_dom_1.Route path="/chat" element={<ChatPage_1.default vscode={vscode}/>}/>
                 <react_router_dom_1.Route path="/nativeElements" element={<NativeElementsPage_1.default />}/>
             </react_router_dom_1.Routes>
