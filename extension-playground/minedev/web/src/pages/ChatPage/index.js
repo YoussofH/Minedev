@@ -23,13 +23,8 @@ const ChatPage = () => {
                     <div className='h-7 w-7 rounded-full border-2 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line /></div>
                     <p>Sure!</p>
                     <h1>Recursive Fibonacci Function</h1>
-                    <p>A recursive function defines itself by calling itself. This approach directly reflects the mathematical definition of the Fibonacci sequence. Here's an example:
-
-                        Python
-
-                        def fibonacci_recursive(n):
-
-                    </p>
+                    <p>A recursive function defines itself by calling itself. This approach directly reflects the mathematical definition of the Fibonacci sequence. Here's an example:</p>
+                    
                 </div>
             </div>
 
