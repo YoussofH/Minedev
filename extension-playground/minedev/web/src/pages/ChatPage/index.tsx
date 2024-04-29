@@ -3,6 +3,8 @@ import { WiStars } from "react-icons/wi";
 import { IoSend } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
 import { RiRobot2Line } from "react-icons/ri";
+import Alert from '../../components/Alert';
+
 
 interface MyProps {
     vscode?: any;
@@ -24,6 +26,7 @@ const ChatPage = ({ vscode }: MyProps) => {
     };
     return (
         <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
+            <Alert>Hello there this is an alersst</Alert>
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
                 <div className="flex flex-col justify-start gap-2 bg-gray-300 p-5">
                     <div className='h-7 w-7 rounded-full border-2 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line /></div>

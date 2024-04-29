@@ -22,12 +22,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const wi_1 = require("react-icons/wi");
 const io5_1 = require("react-icons/io5");
 const fa_1 = require("react-icons/fa");
 const ri_1 = require("react-icons/ri");
+const Alert_1 = __importDefault(require("../../components/Alert"));
 const ChatPage = ({ vscode }) => {
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const handleInputChange = (event) => {
@@ -41,6 +45,7 @@ const ChatPage = ({ vscode }) => {
         vscode.postMessage({ command: 'showInfoMessage', data });
     };
     return (<div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
+            <Alert_1.default>Hello there this is an alersst</Alert_1.default>
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
                 <div className="flex flex-col justify-start gap-2 bg-gray-300 p-5">
                     <div className='h-7 w-7 rounded-full border-2 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line /></div>
