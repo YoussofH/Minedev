@@ -1,19 +1,26 @@
 import * as vscode from 'vscode';
+import { commands } from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    let webview = vscode.commands.registerCommand('minedev.namasteworld', () => {
+    let webview = commands.registerCommand('minedev.reactWebview', () => {
 
         let panel = vscode.window.createWebviewPanel("webview", "Minedev", vscode.ViewColumn.One, {
             enableScripts: true, retainContextWhenHidden: false
         });
 
         let scriptSrc = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "web", "dist", "index.js"));
-
         let cssSrc = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "web", "dist", "index.css"));
-
-        // Set the icon logo of extension webview
         panel.iconPath = vscode.Uri.joinPath(context.extensionUri, 'media', 'logo.png');
+
+        panel.webview.onDidReceiveMessage(
+            (msg) => {
+                switch (msg.command) {
+                    case 'showInfoMessage':
+                        vscode.commands.executeCommand('minedev.showInfoMessage', msg.data);
+                        break;
+                }
+            });
 
         panel.webview.html = `<!DOCTYPE html>
         <html lang="en">
@@ -28,6 +35,13 @@ export function activate(context: vscode.ExtensionContext) {
         </html>
         `;
     });
+
+    commands.registerCommand('minedev.showInfoMessage', (msg) => {
+        vscode.window.showInformationMessage(msg);
+    });
+      
+    commands.executeCommand('minedev.showInfoMessage', "Helloo Theree");
+
 
     context.subscriptions.push(webview);
 }
