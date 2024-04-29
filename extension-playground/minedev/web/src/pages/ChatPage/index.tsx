@@ -16,14 +16,17 @@ const ChatPage = ({ vscode }: MyProps) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDataToSend(event.target.value);
     };
-    const handleClick = () => {
-        console.log(dataToSend);
-        sendDataToExtension(dataToSend);
-    };
 
     const sendDataToExtension = (data: string) => {
         vscode.postMessage({ command: 'showInfoMessage', data });
     };
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        sendDataToExtension(dataToSend);
+        setDataToSend('');
+    }
+
     return (
         <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
             <Alert>Hello there this is an alersst</Alert>
@@ -45,7 +48,7 @@ const ChatPage = ({ vscode }: MyProps) => {
                 </div>
             </div>
 
-            <div className="flex items-center w-full p-5">
+            <form onSubmit={handleSubmit} className="flex items-center w-full p-5">
                 <label htmlFor="voice-search" className="sr-only">Search</label>
                 <div className="relative w-full">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-neutral-400">
@@ -56,10 +59,10 @@ const ChatPage = ({ vscode }: MyProps) => {
                         <FaMicrophone />
                     </button>
                 </div>
-                <button onClick={handleClick} className="inline-flex items-center py-2.5 px-3 ms-2 gap-2  text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <button className="inline-flex items-center py-2.5 px-3 ms-2 gap-2  text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Send<IoSend />
                 </button>
-            </div>
+            </form>
 
         </div>
     )
