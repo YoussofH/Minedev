@@ -39,9 +39,6 @@ export function activate(context: vscode.ExtensionContext) {
     commands.registerCommand('minedev.showInfoMessage', (msg) => {
         vscode.window.showInformationMessage(msg);
     });
-      
-    commands.executeCommand('minedev.showInfoMessage', "Helloo Theree");
-
 
     context.subscriptions.push(webview);
 }

@@ -13,7 +13,8 @@ const App = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='*' element={<HomePage />} />
+                <Route path='/' element={<HomePage />} />
+                <Route path="*" element={<ChatPage vscode={vscode} />} />
                 <Route path="/chat" element={<ChatPage vscode={vscode} />} />
                 <Route path="/nativeElements" element={<NativeElementsPage />} />
             </Routes>

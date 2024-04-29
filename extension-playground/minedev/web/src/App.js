@@ -12,7 +12,8 @@ const vscode = acquireVsCodeApi();
 const App = () => {
     return (<react_router_dom_1.BrowserRouter>
             <react_router_dom_1.Routes>
-                <react_router_dom_1.Route path='*' element={<HomePage_1.default />}/>
+                <react_router_dom_1.Route path='/' element={<HomePage_1.default />}/>
+                <react_router_dom_1.Route path="*" element={<ChatPage_1.default vscode={vscode}/>}/>
                 <react_router_dom_1.Route path="/chat" element={<ChatPage_1.default vscode={vscode}/>}/>
                 <react_router_dom_1.Route path="/nativeElements" element={<NativeElementsPage_1.default />}/>
             </react_router_dom_1.Routes>
