@@ -20,6 +20,10 @@
             {
                 "command": "minedev.showInfoMessage",
                 "title": "Show Informational Message"
+            },
+            {
+                "command": "minedev.vsToReact",
+                "title": "Send from vscode to React"
             }
         ]
     },

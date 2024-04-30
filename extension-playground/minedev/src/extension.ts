@@ -13,15 +13,6 @@ export function activate(context: vscode.ExtensionContext) {
         let cssSrc = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, "web", "dist", "index.css"));
         panel.iconPath = vscode.Uri.joinPath(context.extensionUri, 'media', 'logo.png');
 
-        panel.webview.onDidReceiveMessage(
-            (msg) => {
-                switch (msg.command) {
-                    case 'showInfoMessage':
-                        vscode.commands.executeCommand('minedev.showInfoMessage', msg.data);
-                        break;
-                }
-            });
-
         panel.webview.html = `<!DOCTYPE html>
         <html lang="en">
           <head>
@@ -34,13 +25,43 @@ export function activate(context: vscode.ExtensionContext) {
           </body>
         </html>
         `;
+
+        context.subscriptions.push(webview);
+
+        panel.webview.onDidReceiveMessage(
+            (msg) => {
+                switch (msg.command) {
+                    case 'showInfoMessage':
+                        vscode.commands.executeCommand('minedev.showInfoMessage', msg.data);
+                        break;
+                }
+            });
+
+
+        let disposable = vscode.commands.registerCommand('minedev.vsToReact', () => {
+            panel.webview.postMessage(
+                {
+                    command: "showMessage",
+                    content: "Put your hands in the air ;)"
+                });
+        });
+        context.subscriptions.push(disposable);
+        setTimeout(function () { vscode.commands.executeCommand("minedev.vsToReact"); }, 5000);
+
+        panel.onDidDispose(
+            () => {
+                disposable.dispose();
+            },
+            null,
+            context.subscriptions
+        );
+
     });
+
 
     commands.registerCommand('minedev.showInfoMessage', (msg) => {
         vscode.window.showInformationMessage(msg);
     });
-
-    context.subscriptions.push(webview);
 }
 
 export function deactivate() { }

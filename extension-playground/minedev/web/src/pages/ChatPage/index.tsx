@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WiStars } from "react-icons/wi";
 import { IoSend } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
@@ -12,6 +12,31 @@ interface MyProps {
 
 const ChatPage = ({ vscode }: MyProps) => {
     const [dataToSend, setDataToSend] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+
+
+    useEffect(() => {
+        const handleReceiveMessage = (event) => {
+            const message = event.data;
+            if (message.command === 'showMessage') {
+                setAlertMessage(message.content);
+                setShowAlert(true);
+            }
+        };
+
+        window.addEventListener('message', handleReceiveMessage);
+
+        return () => {
+            window.removeEventListener('message', handleReceiveMessage); // Cleanup
+        };
+    }, []);
+
+
+    const handleDismissAlert = () => {
+        setShowAlert(false);
+        setAlertMessage('');
+    };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDataToSend(event.target.value);
@@ -29,7 +54,7 @@ const ChatPage = ({ vscode }: MyProps) => {
 
     return (
         <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
-            <Alert>Hello there this is an alersst</Alert>
+            {showAlert && (<Alert onDismiss={handleDismissAlert}>{alertMessage}</Alert>)}
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
                 <div className="flex flex-col justify-start gap-2 bg-gray-300 p-5">
                     <div className='h-7 w-7 rounded-full border-2 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line /></div>

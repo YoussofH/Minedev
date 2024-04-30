@@ -34,6 +34,25 @@ const ri_1 = require("react-icons/ri");
 const Alert_1 = __importDefault(require("../../components/Alert"));
 const ChatPage = ({ vscode }) => {
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
+    const [showAlert, setShowAlert] = (0, react_1.useState)(false);
+    const [alertMessage, setAlertMessage] = (0, react_1.useState)('');
+    (0, react_1.useEffect)(() => {
+        const handleReceiveMessage = (event) => {
+            const message = event.data;
+            if (message.command === 'showMessage') {
+                setAlertMessage(message.content);
+                setShowAlert(true);
+            }
+        };
+        window.addEventListener('message', handleReceiveMessage);
+        return () => {
+            window.removeEventListener('message', handleReceiveMessage); // Cleanup
+        };
+    }, []);
+    const handleDismissAlert = () => {
+        setShowAlert(false);
+        setAlertMessage('');
+    };
     const handleInputChange = (event) => {
         setDataToSend(event.target.value);
     };
@@ -46,7 +65,7 @@ const ChatPage = ({ vscode }) => {
         setDataToSend('');
     };
     return (<div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
-            <Alert_1.default>Hello there this is an alersst</Alert_1.default>
+            {showAlert && (<Alert_1.default onDismiss={handleDismissAlert}>{alertMessage}</Alert_1.default>)}
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
                 <div className="flex flex-col justify-start gap-2 bg-gray-300 p-5">
                     <div className='h-7 w-7 rounded-full border-2 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line /></div>
