@@ -1,10 +1,6 @@
-import { RiSparkling2Fill } from "react-icons/ri";
 import { PiDotsThreeFill } from "react-icons/pi";
 import { PiWaves } from "react-icons/pi";
 import { TbBulb } from "react-icons/tb";
-import { FaAsterisk } from "react-icons/fa6";
-import { PiStarFour } from "react-icons/pi";
-import { MdArrowOutward } from "react-icons/md";
 
 //import heroImage from "../assets/heroImage.jpg";
 import feature1Image from "../assets/feature1Image.png";
@@ -46,6 +42,7 @@ export const features = [
 
 export const pricingOptions = [
     {
+        class: "",
         title: "Free",
         price: "$0",
         tip: "Affordable and Essential",
@@ -57,6 +54,7 @@ export const pricingOptions = [
         ],
     },
     {
+        class: "",
         title: "Pro",
         price: "$10",
         tip: "Flexible and Scalable",
@@ -68,6 +66,7 @@ export const pricingOptions = [
         ],
     },
     {
+        class: "lg:md:col-span-1 md:col-span-2",
         title: "Enterprise",
         price: "$200",
         tip: "Customized for Your Business",
