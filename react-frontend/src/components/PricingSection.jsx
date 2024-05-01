@@ -24,7 +24,7 @@ const PricingSection = () => {
                     <div class="py-6 px-4 w-full">
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-4">
                             {pricingOptions.map((offer, index) => (
-                                <div class={`flex flex-col ${offer.class} col-span-1 justify-between p-6 mx-auto w-full text-center text-gray-900 bg-gray-200 rounded-lg border border-gray-100 shadow`}>
+                                <div class={`flex flex-col ${offer.class} col-span-1 justify-between p-6 mx-auto w-full text-center text-gray-900 bg-gray-50 rounded-lg border border-gray-100 shadow`}>
                                     <h3 class="mb-4 text-2xl font-semibold">{offer.title}</h3>
                                     <p class="font-light text-gray-500 sm:text-lg">{offer.tip}</p>
                                     <div class="flex justify-center items-baseline my-8">
