@@ -1,7 +1,0 @@
-POST http://localhost.com:11434/api/chat
-content-type: application/json
-
-{
-    "model": "llama3",
-    "messages": "Is the sky blue?"
-}
