@@ -26,16 +26,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// @ts-nocheck
 const react_1 = __importStar(require("react"));
 const wi_1 = require("react-icons/wi");
 const io5_1 = require("react-icons/io5");
 const fa_1 = require("react-icons/fa");
 const ri_1 = require("react-icons/ri");
 const Alert_1 = __importDefault(require("../../components/Alert"));
+const messagesTemplate = [
+    {
+        text: "Welcome to Minedev! How can I assist you today?",
+        isBot: true,
+        timestamp: "2024-06-09T10:33:06.763Z",
+        id: "156"
+    },
+    {
+        text: "Make a python Fibonacci fxn",
+        isBot: false,
+        timestamp: "2024-06-09T11:33:06.763Z",
+        id: "156"
+    },
+];
 const ChatPage = ({ vscode }) => {
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const [showAlert, setShowAlert] = (0, react_1.useState)(false);
     const [alertMessage, setAlertMessage] = (0, react_1.useState)('');
+    const [messages, setMessages] = (0, react_1.useState)(messagesTemplate);
     (0, react_1.useEffect)(() => {
         const handleReceiveMessage = (event) => {
             const message = event.data;
@@ -67,21 +83,15 @@ const ChatPage = ({ vscode }) => {
     return (<div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
             {showAlert && (<Alert_1.default onDismiss={handleDismissAlert}>{alertMessage}</Alert_1.default>)}
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
-                <div className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
-                    <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line size={40}/></div>
-                    <p>Welcome to Minedev! How can I assist you today?</p>
-                </div>
-                <div className="flex flex-col justify-start gap-2 p-5">
-                    <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar"/>
-                    <p>Make a python Fibonacci function</p>
-                </div>
-                <div className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
-                    <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line size={40}/></div>
-                    <p>Sure!</p>
-                    <h1>Recursive Fibonacci Function</h1>
-                    <p>A recursive function defines itself by calling itself. This approach directly reflects the mathematical definition of the Fibonacci sequence. Here's an example:</p>
-
-                </div>
+                {messages.map((message) => {
+            return message.isBot ? (<div key={message.id} className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
+                        <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line size={40}/></div>
+                        <p>{message.text}</p>
+                    </div>) : (<div key={message.id} className="flex flex-col justify-start gap-2 p-5">
+                        <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar"/>
+                        <p>{message.text}</p>
+                    </div>);
+        })}
             </div>
 
             <form onSubmit={handleSubmit} className="flex items-center w-full p-5">

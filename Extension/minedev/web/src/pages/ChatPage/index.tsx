@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { WiStars } from "react-icons/wi";
 import { IoSend } from "react-icons/io5";
@@ -5,15 +6,28 @@ import { FaMicrophone } from "react-icons/fa";
 import { RiRobot2Line } from "react-icons/ri";
 import Alert from '../../components/Alert';
 
+const messagesTemplate = [
+    {
+        text: "Welcome to Minedev! How can I assist you today?",
+        isBot: true,
+        timestamp: "2024-06-09T10:33:06.763Z",
+        id: "156"
+    },
+    {
+        text: "Make a python Fibonacci fxn",
+        isBot: false,
+        timestamp: "2024-06-09T11:33:06.763Z",
+        id: "156"
+    },
+];
 
-interface MyProps {
-    vscode?: any;
-}
-
-const ChatPage = ({ vscode }: MyProps) => {
+  
+const ChatPage = ({ vscode }) => {
     const [dataToSend, setDataToSend] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
+
+    const [messages, setMessages] = useState(messagesTemplate);
 
 
     useEffect(() => {
@@ -56,21 +70,15 @@ const ChatPage = ({ vscode }: MyProps) => {
         <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
             {showAlert && (<Alert onDismiss={handleDismissAlert}>{alertMessage}</Alert>)}
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
-                <div className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
-                    <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line size={40} /></div>
-                    <p>Welcome to Minedev! How can I assist you today?</p>
-                </div>
-                <div className="flex flex-col justify-start gap-2 p-5">
-                    <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar" />
-                    <p>Make a python Fibonacci function</p>
-                </div>
-                <div className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
-                    <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line size={40} /></div>
-                    <p>Sure!</p>
-                    <h1>Recursive Fibonacci Function</h1>
-                    <p>A recursive function defines itself by calling itself. This approach directly reflects the mathematical definition of the Fibonacci sequence. Here's an example:</p>
-
-                </div>
+                {messages.map((message) => {
+                    return message.isBot ? (<div key={message.id} className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
+                        <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line size={40} /></div>
+                        <p>{message.text}</p>
+                    </div>):(<div key={message.id} className="flex flex-col justify-start gap-2 p-5">
+                        <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar" />
+                        <p>{message.text}</p>
+                    </div>);
+                })}
             </div>
 
             <form onSubmit={handleSubmit} className="flex items-center w-full p-5">
