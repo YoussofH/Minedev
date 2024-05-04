@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const sendRequest = async (method, route, body) => {
+const sendRequest = async (method: any, route: any, body: any) => {
   try {
-    axios.defaults.baseURL = "http://localhost:5000/auth/";
+    axios.defaults.baseURL = "https://663534ca9bb0df2359a41dae.mockapi.io/api/";
 
     const response = await axios.request({
       method: method,

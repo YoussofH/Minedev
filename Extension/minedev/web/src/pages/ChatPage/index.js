@@ -44,7 +44,7 @@ const messagesTemplate = [
         text: "Make a python Fibonacci fxn",
         isBot: false,
         timestamp: "2024-06-09T11:33:06.763Z",
-        id: "156"
+        id: "157"
     },
 ];
 const ChatPage = ({ vscode }) => {

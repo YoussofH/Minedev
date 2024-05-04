@@ -1,9 +1,10 @@
 import * as vscode from 'vscode';
 import { commands } from 'vscode';
+import sendRequest from './remote/sendRequest';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    let webview = commands.registerCommand('minedev.reactWebview', () => {
+    let webview = commands.registerCommand('minedev.reactWebview', async () => {
 
         let panel = vscode.window.createWebviewPanel("webview", "Minedev", vscode.ViewColumn.One, {
             enableScripts: true, retainContextWhenHidden: false
@@ -37,12 +38,23 @@ export function activate(context: vscode.ExtensionContext) {
                 }
             });
 
+        const getMessages = async () => {
+            try {
+                const response = await sendRequest('GET', 'messages', {}); // No body required for GET requests
+                return response.data;
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
+        };
+
+        const messages = await getMessages();
+
 
         let disposable = vscode.commands.registerCommand('minedev.vsToReact', () => {
             panel.webview.postMessage(
                 {
                     command: "showMessage",
-                    content: "Put your hands in the air ;)"
+                    content: messages[0].message
                 });
         });
         context.subscriptions.push(disposable);
