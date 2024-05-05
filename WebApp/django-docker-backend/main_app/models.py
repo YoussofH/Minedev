@@ -76,3 +76,6 @@ class BotResponse(models.Model):
     history_context = models.TextField()
     content = models.TextField()
     sent_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Bot responded {self.content}"
