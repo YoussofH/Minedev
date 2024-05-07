@@ -8,9 +8,10 @@ import feature2Image from "../assets/feature1Image.png";
 import feature3Image from "../assets/feature1Image.png";
 
 export const navItems = [
-    { label: "About", href: "#" },
-    { label: "Features", href: "#" },
-    { label: "Pricing", href: "#" },
+    { label: "About", route: "#about" },
+    { label: "Features", route: "#features" },
+    { label: "Pricing", route: "#pricing" },
+    { label: "Voice Test", route: "voicePage" },
 ];
 
 export const features = [
