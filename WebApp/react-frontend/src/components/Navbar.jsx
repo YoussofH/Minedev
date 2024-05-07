@@ -29,7 +29,7 @@ const Navbar = () => {
                     }
                 </ul>
                 <div className='flex gap-2'>
-                    <Button variant='light'>Login</Button>
+                    <Button variant='light' onClick={() => goToRoute("login")}>Login</Button>
                     <Button>Get Started</Button>
                 </div>
             </nav>
