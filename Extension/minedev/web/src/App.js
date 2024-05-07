@@ -8,14 +8,16 @@ const react_router_dom_1 = require("react-router-dom");
 const NativeElementsPage_1 = __importDefault(require("./pages/NativeElementsPage"));
 const ChatPage_1 = __importDefault(require("./pages/ChatPage"));
 const HomePage_1 = __importDefault(require("./pages/HomePage"));
+const LoginPage_1 = __importDefault(require("./pages/LoginPage"));
 const vscode = acquireVsCodeApi();
 const App = () => {
     return (<react_router_dom_1.BrowserRouter>
             <react_router_dom_1.Routes>
                 <react_router_dom_1.Route path='/' element={<HomePage_1.default />}/>
-                <react_router_dom_1.Route path="*" element={<ChatPage_1.default vscode={vscode}/>}/>
+                <react_router_dom_1.Route path="/" element={<ChatPage_1.default vscode={vscode}/>}/>
                 <react_router_dom_1.Route path="/chat" element={<ChatPage_1.default vscode={vscode}/>}/>
                 <react_router_dom_1.Route path="/nativeElements" element={<NativeElementsPage_1.default />}/>
+                <react_router_dom_1.Route path="*" element={<LoginPage_1.default />}/>
             </react_router_dom_1.Routes>
         </react_router_dom_1.BrowserRouter>);
 };
