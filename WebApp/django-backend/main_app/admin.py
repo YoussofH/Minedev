@@ -5,7 +5,7 @@ from .models import (Plan, Project, Feature, BotResponse, Conversation,
 from django.contrib.auth.admin import UserAdmin
 from .models import Developer
 
-admin.site.register(Developer, UserAdmin)
+admin.site.register(Developer)
 
 # Register your models here.
 admin.site.register(Plan)
