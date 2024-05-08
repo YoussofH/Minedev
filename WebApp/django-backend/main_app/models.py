@@ -35,6 +35,7 @@ class Developer(AbstractBaseUser, PermissionsMixin):
 
     last_login = models.DateTimeField(auto_now_add=True)
     is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     objects = CustomUserManager()
 
