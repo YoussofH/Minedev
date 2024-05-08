@@ -3,7 +3,6 @@ from rest_framework.serializers import ModelSerializer, Serializer
 
 from django.contrib.auth import authenticate
 from rest_framework import exceptions
-from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class PlanSerializer(ModelSerializer):
@@ -53,7 +52,3 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             return data
         else:
             raise exceptions.AuthenticationFailed('No active account found with the given credentials')
-
-
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
