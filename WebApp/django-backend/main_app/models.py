@@ -33,6 +33,7 @@ class Developer(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     plan = models.ForeignKey(Plan, on_delete= models.CASCADE)
 
+    username = None
     last_login = models.DateTimeField(auto_now_add=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
