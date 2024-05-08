@@ -3,20 +3,22 @@ from .models import Plan, Developer
 from .serializers import PlanSerializer
 from rest_framework.viewsets import ModelViewSet
 
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated
+
+from .serializers import DeveloperModelSerializer
+
 class PlanViewSet(ModelViewSet):
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer
 
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.permissions import IsAuthenticated
 
-from .serializers import UserModelSerializer
 
 class UserProfileListCreateView(ListCreateAPIView):
     """Generic View for Listing and Creating User Profiles"""
 
     queryset = Developer.objects.all()
-    serializer_class = UserModelSerializer
+    serializer_class = DeveloperModelSerializer
     permission_classes = [AllowAny]
 
     def create(self, validated_data):

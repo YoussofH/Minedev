@@ -1,6 +1,5 @@
-from .models import Plan
+from .models import Plan, Developer
 from rest_framework.serializers import ModelSerializer, Serializer
-from .models import Developer
 
 from django.contrib.auth import authenticate
 from rest_framework import exceptions
