@@ -1,6 +1,11 @@
-from django.urls import path
-from .views import PlanListAPIView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+from .views import PlanViewSet
+
+router = DefaultRouter()
+router.register('plans/', PlanViewSet)
 
 urlpatterns = [
-    path('plans/', PlanListAPIView.as_view()),
+    path('', include(router.urls)),
 ]
