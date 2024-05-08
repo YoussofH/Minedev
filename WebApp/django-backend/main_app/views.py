@@ -5,6 +5,8 @@ from rest_framework.viewsets import ModelViewSet
 
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
+
 
 from .serializers import DeveloperModelSerializer
 
