@@ -5,6 +5,7 @@ import { IoSend } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
 import { RiRobot2Line } from "react-icons/ri";
 import Alert from '../../components/Alert';
+import { vsShowInfoMessage, vsSendRequest } from '../../ReactToVS/api';
 
 const messagesTemplate = [
     {
@@ -52,17 +53,14 @@ const ChatPage = ({ vscode }) => {
         setAlertMessage('');
     };
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (event) => {
         setDataToSend(event.target.value);
     };
 
-    const sendDataToExtension = (data: string) => {
-        vscode.postMessage({ command: 'showInfoMessage', data });
-    };
-
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        sendDataToExtension(dataToSend);
+        vsShowInfoMessage(vscode, dataToSend);
+        vsSendRequest(vscode, 'GET', 'messages', {});
         setDataToSend('');
     }
 

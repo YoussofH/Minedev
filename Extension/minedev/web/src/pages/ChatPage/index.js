@@ -33,6 +33,7 @@ const io5_1 = require("react-icons/io5");
 const fa_1 = require("react-icons/fa");
 const ri_1 = require("react-icons/ri");
 const Alert_1 = __importDefault(require("../../components/Alert"));
+const api_1 = require("../../ReactToVS/api");
 const messagesTemplate = [
     {
         text: "Welcome to Minedev! How can I assist you today?",
@@ -72,12 +73,10 @@ const ChatPage = ({ vscode }) => {
     const handleInputChange = (event) => {
         setDataToSend(event.target.value);
     };
-    const sendDataToExtension = (data) => {
-        vscode.postMessage({ command: 'showInfoMessage', data });
-    };
     const handleSubmit = (event) => {
         event.preventDefault();
-        sendDataToExtension(dataToSend);
+        (0, api_1.vsShowInfoMessage)(vscode, dataToSend);
+        (0, api_1.vsSendRequest)(vscode, 'GET', 'messages', {});
         setDataToSend('');
     };
     return (<div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
