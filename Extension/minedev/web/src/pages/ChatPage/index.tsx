@@ -60,7 +60,7 @@ const ChatPage = ({ vscode }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         vsShowInfoMessage(vscode, dataToSend);
-        vsSendRequest(vscode, 'GET', 'messages', {});
+        vsSendRequest(vscode, 'GET', 'plans', {});
         setDataToSend('');
     }
 

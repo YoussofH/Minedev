@@ -61,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
         //test API
         const getMockAPIMessages = async () => {
             try {
-                const response = await sendRequest('GET', 'messages', {}); // No body required for GET requests
+                const response = await sendRequest('GET', 'plans', {}); // No body required for GET requests
                 return response.data;
             } catch (error) {
                 console.error('Error fetching messages:', error);
@@ -69,7 +69,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
 
         const messages = await getMockAPIMessages();
-        setTimeout(function () { vscode.commands.executeCommand("minedev.vsToReact", { command: "showMessage", body: JSON.stringify(messages[0].message) }); }, 5000);
+        setTimeout(function () { vscode.commands.executeCommand("minedev.vsToReact", { command: "showMessage", body: JSON.stringify(messages) }); }, 5000);
         //end of logic part
 
         panel.onDidDispose(
