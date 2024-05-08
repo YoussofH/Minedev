@@ -6,6 +6,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     let webview = commands.registerCommand('minedev.reactWebview', async () => {
 
+        //launch webview
         let panel = vscode.window.createWebviewPanel("webview", "Minedev", vscode.ViewColumn.One, {
             enableScripts: true, retainContextWhenHidden: false
         });
@@ -26,19 +27,38 @@ export function activate(context: vscode.ExtensionContext) {
           </body>
         </html>
         `;
-
         context.subscriptions.push(webview);
 
+        commands.registerCommand('minedev.showInfoMessage', (msg) => {
+            vscode.window.showInformationMessage(msg);
+        });
+
+        //register VS to React command
+        let disposable = vscode.commands.registerCommand('minedev.vsToReact', async ({command, body}) => {
+            panel.webview.postMessage(
+                {
+                    command: command,
+                    content: body
+                });
+        });
+        context.subscriptions.push(disposable);
+
+        //React To VS Event Handler
         panel.webview.onDidReceiveMessage(
-            (msg) => {
+            async (msg) => {
                 switch (msg.command) {
                     case 'showInfoMessage':
                         vscode.commands.executeCommand('minedev.showInfoMessage', msg.data);
                         break;
+                    case 'sendRequest':
+                        const response = await sendRequest(msg.method, msg.path, msg.body);//react should send method type, path, and body of request  
+                        vscode.commands.executeCommand("minedev.vsToReact", {command:"showMessage", body:response.data});//parse string on React side
+                        vscode.commands.executeCommand('minedev.showInfoMessage', JSON.stringify(response.data));
+                        break;
                 }
             });
-
-        const getMessages = async () => {
+        //test API
+        const getMockAPIMessages = async () => {
             try {
                 const response = await sendRequest('GET', 'messages', {}); // No body required for GET requests
                 return response.data;
@@ -47,18 +67,9 @@ export function activate(context: vscode.ExtensionContext) {
             }
         };
 
-        const messages = await getMessages();
-
-
-        let disposable = vscode.commands.registerCommand('minedev.vsToReact', () => {
-            panel.webview.postMessage(
-                {
-                    command: "showMessage",
-                    content: messages[0].message
-                });
-        });
-        context.subscriptions.push(disposable);
-        setTimeout(function () { vscode.commands.executeCommand("minedev.vsToReact"); }, 5000);
+        const messages = await getMockAPIMessages();
+        setTimeout(function () { vscode.commands.executeCommand("minedev.vsToReact", {command:"showMessage", body:JSON.stringify(messages[0].message)}); }, 5000);
+        //end of logic part
 
         panel.onDidDispose(
             () => {
@@ -68,11 +79,6 @@ export function activate(context: vscode.ExtensionContext) {
             context.subscriptions
         );
 
-    });
-
-
-    commands.registerCommand('minedev.showInfoMessage', (msg) => {
-        vscode.window.showInformationMessage(msg);
     });
 }
 
