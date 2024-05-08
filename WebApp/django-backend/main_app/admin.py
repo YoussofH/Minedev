@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import (Plan, Project, Feature, BotResponse, Conversation,
                      Developer, DeveloperPrompt, Enterprise, EnterpriseDeveloper)
 
+from django.contrib.auth.admin import UserAdmin
+from .models import Developer
+
+admin.site.register(Developer, UserAdmin)
+
 # Register your models here.
 admin.site.register(Plan)
 admin.site.register(Project)
