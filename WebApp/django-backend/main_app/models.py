@@ -34,6 +34,8 @@ class Developer(AbstractBaseUser, PermissionsMixin):
     plan = models.ForeignKey(Plan, on_delete= models.CASCADE)
 
     last_login = models.DateTimeField(auto_now_add=True)
+    is_superuser = models.BooleanField(default=False)
+
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
