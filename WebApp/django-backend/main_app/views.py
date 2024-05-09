@@ -24,6 +24,7 @@ class UserProfileListCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
 
     def create(self, validated_data):
+        print(validated_data)
         user = Developer.objects.create_user(**validated_data)
         return user
     
