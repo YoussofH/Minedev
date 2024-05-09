@@ -90,7 +90,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": os.environ['POSTGRES_PASS'],
-        "HOST": "minedev-database.c1qiakkwspet.us-east-2.rds.amazonaws.com",
+        "HOST": "minedev-database-2.c1qiakkwspet.us-east-2.rds.amazonaws.com",
         "PORT": 5432,
     }
 }
