@@ -23,10 +23,20 @@ class UserProfileListCreateView(ListCreateAPIView):
     serializer_class = DeveloperModelSerializer
     permission_classes = [AllowAny]
 
-    def create(self, validated_data):
-        print(validated_data)
-        user = Developer.objects.create_user(**validated_data)
-        return user
+    '''def create(self, request, validated_data):
+        print("VALIDATED DATA: ", validated_data)
+        email = validated_data.pop('email')
+        password = validated_data.pop('password')
+        fullname = validated_data.pop('fullname')
+        user = Developer.objects.create_user(email=email, password=password, fullname=fullname)
+        return user'''
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
     
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
