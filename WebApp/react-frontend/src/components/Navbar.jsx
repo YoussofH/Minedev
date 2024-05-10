@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState, useContext } from 'react'
 import logo from '../assets/logo.png';
 import { navItems } from '../constants';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext'
 
 const Navbar = () => {
+    let { user, logoutUser } = useContext(AuthContext);
+
+    const isAuthenticated = false;
     const navigate = useNavigate();
 
     const goToRoute = (routeName) => {
@@ -29,8 +34,13 @@ const Navbar = () => {
                     }
                 </ul>
                 <div className='flex gap-2'>
-                    <Button variant='light' onClick={() => goToRoute("login")}>Login</Button>
-                    <Button>Get Started</Button>
+                    {user} ? (
+                        <Button variant='light' onClick={logoutUser}>Logout</Button>
+                    ):(
+                        <Button variant='light' onClick={() => goToRoute("login")}>Login</Button>
+                        <Button>Get Started</Button>
+                    )
+
                 </div>
             </nav>
         </div>
