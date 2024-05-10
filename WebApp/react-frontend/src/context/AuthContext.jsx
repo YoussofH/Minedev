@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import sendRequest from '../remote/sendRequest';
 
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     let loginUser = async (e) => {
         e.preventDefault()
 
-        await sendRequest("POST", "/user/token/", { email: e.target.email.value, password: e.target.password.value })
+        await sendRequest("POST", "/user/token/", { email: e.target.email.value, password: e.target.password.value }, false)
             .then((response) => {
                     localStorage.setItem('authTokens', JSON.stringify(response.data));
                     setAuthTokens(response.data);
