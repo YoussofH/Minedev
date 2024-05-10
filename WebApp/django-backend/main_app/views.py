@@ -1,19 +1,26 @@
 from django.shortcuts import render
 from .models import Plan, Developer
-from .serializers import PlanSerializer
+from .serializers import PlanSerializer, DeveloperModelSerializer, CustomTokenObtainPairSerializer
+
 from rest_framework.viewsets import ModelViewSet
-
 from rest_framework.generics import ListCreateAPIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.permissions import AllowAny
-
-from .serializers import DeveloperModelSerializer, CustomTokenObtainPairSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+from rest_framework.decorators import api_view, permission_classes
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_profile(request):
+    user = request.user
+    serializer = DeveloperModelSerializer(user, many=False)
+    return Response(serializer.data)
+
 
 class PlanViewSet(ModelViewSet):
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer
-
 
 
 class UserProfileListCreateView(ListCreateAPIView):
