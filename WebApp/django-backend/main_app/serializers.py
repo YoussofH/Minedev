@@ -23,7 +23,7 @@ class DeveloperModelSerializer(ModelSerializer):
     
     class Meta:
         model = Developer
-        fields = ['fullname', 'email', 'password']
+        fields = ['fullname', 'email', 'password', 'plan']
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
 
@@ -31,11 +31,6 @@ class DeveloperModelSerializer(ModelSerializer):
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     username_field = 'email'
 
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['username'] = user.username
-        return token
         
     def validate(self, attrs):
         credentials = {
