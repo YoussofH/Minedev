@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react'
 import logo from '../../assets/logo.png';
+import AuthContext from '../../context/AuthContext';
 
 const LoginPage = () => {
+    let {loginUser} = useContext(AuthContext)
+    
     return (
         <section className="bg-gray-50 min-h-screen">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -14,7 +17,7 @@ const LoginPage = () => {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                             Sign in to your account
                         </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
+                        <form className="space-y-4 md:space-y-6" onSubmit={loginUser}>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email</label>
                                 <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5" placeholder="name@company.com" required />
