@@ -13,6 +13,17 @@ export const AuthProvider = ({ children }) => {
 
     const navigate = useNavigate();
 
+    let signupUser = async (e) => {
+        e.preventDefault()
+
+        await sendRequest("POST", "/user/register/", { fullname: e.target.fullname.value, email: e.target.email.value, password: e.target.password.value }, false)
+            .then((response) => {
+                navigate('/login');
+            }).catch((error) => {
+                console.log("Something went wrong with signup");
+                console.log(error);
+            });
+    }
     let loginUser = async (e) => {
         e.preventDefault()
 
@@ -39,6 +50,7 @@ export const AuthProvider = ({ children }) => {
     let contextData = {
         isAuthenticated: isAuthenticated,
         authTokens: authTokens,
+        signupUser: signupUser,
         loginUser: loginUser,
         logoutUser: logoutUser,
     }
