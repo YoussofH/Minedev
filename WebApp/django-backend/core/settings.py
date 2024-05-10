@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-_kizhqo*o0q55!3vz21m6_sjnc9h)9*-t(-%!hf+_5y@^bp8uo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "13.58.31.202"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "18.219.38.17"]
 
 
 # Application definition
@@ -140,6 +140,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
 }
 
 AUTH_USER_MODEL = 'main_app.Developer'
