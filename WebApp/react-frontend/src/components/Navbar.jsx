@@ -1,15 +1,13 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import logo from '../assets/logo.png';
 import { navItems } from '../constants';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
 
 const Navbar = () => {
-    let { user, logoutUser } = useContext(AuthContext);
+    let { isAuthenticated, logoutUser } = useContext(AuthContext);
 
-    const isAuthenticated = false;
     const navigate = useNavigate();
 
     const goToRoute = (routeName) => {
@@ -17,7 +15,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="container flex flex-row justify-center my-3 py-2 backdrop:blur-lg mx-auto sticky top-3 z-50">
+        <div className="container flex flex-row justify-center my-3 py-2 backdrop:blur-lg mx-auto sticky top-3 z-50 h-20">
             <nav className="shadow-lg flex items-center gap-3 px-3 py-3 border text-white rounded-xl w-full lg:w-2/3 justify-between mx-6 bg-white">
                 <div className="w-16 logo px-3 cursor-pointer ">
                     <img src={logo} className="" alt="" />
@@ -34,13 +32,14 @@ const Navbar = () => {
                     }
                 </ul>
                 <div className='flex gap-2'>
-                    {user} ? (
-                        <Button variant='light' onClick={logoutUser}>Logout</Button>
-                    ):(
-                        <Button variant='light' onClick={() => goToRoute("login")}>Login</Button>
-                        <Button>Get Started</Button>
-                    )
-
+                    {isAuthenticated ? (
+                        <div className='flex flex-row justify-center'>
+                            <p className='text-black py-2 mx-2'>Authenticated User</p>
+                            <Button variant="logout" onClick={logoutUser}>Logout</Button>
+                        </div>
+                    ) : (
+                        <><Button variant='light' onClick={() => goToRoute("login")}>Login</Button><Button>Get Started</Button></>
+                    )}
                 </div>
             </nav>
         </div>
