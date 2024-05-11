@@ -1,13 +1,33 @@
-from .models import Plan, Developer
+from .models import Plan, Developer, DeveloperPrompt, Conversation, BotResponse
 from rest_framework.serializers import ModelSerializer, Serializer
 
 from django.contrib.auth import authenticate
 from rest_framework import exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
 
 class PlanSerializer(ModelSerializer):
     class Meta:
         model = Plan
+        fields = '__all__'
+
+class DeveloperPromptSerializer(ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    sent_at = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        model = DeveloperPrompt
+        fields = ('user', 'content', 'conversation', 'sent_at')
+
+class BotResponseSerializer(ModelSerializer):
+    class Meta:
+        model = BotResponse
+        fields = '__all__'
+
+class ConversationSerializer(ModelSerializer):
+    developer_prompts = DeveloperPromptSerializer(many=True, read_only=True)
+    bot_responses = DeveloperPromptSerializer(many=True, read_only=True)
+    class Meta:
+        model = Conversation
         fields = '__all__'
 
 class DeveloperModelSerializer(ModelSerializer):
