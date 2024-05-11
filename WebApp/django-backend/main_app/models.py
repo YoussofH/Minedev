@@ -10,11 +10,11 @@ class Plan(models.Model):
     
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, fullname=None, password=None, plan=None):
+    def create_user(self, email, password=None, fullname="", plan=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, fullname=fullname, plan=plan)
+        user = self.model(email=email, fullname=fullname, plan=plan, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -32,10 +32,10 @@ class Developer(AbstractBaseUser, PermissionsMixin):
     plan = models.ForeignKey(Plan, on_delete= models.CASCADE, blank=True, null=True)
 
     username = None
-    last_login = models.DateTimeField(auto_now_add=True)
     is_superuser = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    last_login = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
 
     objects = CustomUserManager()
 
@@ -89,11 +89,11 @@ class Conversation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.fullname} chatting conversation on {self.project.name} project"
+        return f"{self.id} {self.user.fullname} chatting conversation on {self.project.name} project"
 
 class DeveloperPrompt(models.Model):
     user = models.ForeignKey(Developer, on_delete=models.CASCADE)
-    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
+    conversation = models.ForeignKey(Conversation, related_name="developer_prompts", on_delete=models.CASCADE)
     content = models.TextField()
     sent_at = models.DateTimeField(auto_now_add=True)
 
@@ -101,7 +101,7 @@ class DeveloperPrompt(models.Model):
         return f"{self.user.fullname} prompted {self.content}"
     
 class BotResponse(models.Model):
-    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
+    conversation = models.ForeignKey(Conversation, related_name="bot_responses", on_delete=models.CASCADE)
     history_context = models.TextField()
     content = models.TextField()
     sent_at = models.DateTimeField(auto_now_add=True)
