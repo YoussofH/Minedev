@@ -41,7 +41,7 @@ const LoginPage = () => {
                             </div>
                             <button type="submit" className="w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
                             <p className="text-sm font-light text-gray-500">
-                                Don’t have an account yet? <button href="#" onClick={()=>navigate("/signup")} className="font-medium text-sky-600 hover:underline">Sign up</button>
+                                Don’t have an account yet? <button onClick={()=>navigate("/signup")} className="font-medium text-sky-600 hover:underline">Sign up</button>
                             </p>
                         </form>
                     </div>

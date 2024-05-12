@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NativeElementsPage from './pages/NativeElementsPage';
 import ChatPage from './pages/ChatPage';
-import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import PrivateRoute from './utils/PrivateRoute';
+import { AuthProvider } from './context/AuthContext';
 
 declare function acquireVsCodeApi(): any;
 const vscode = acquireVsCodeApi();
@@ -13,13 +13,14 @@ const App = () => {
 
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path="/" element={<ChatPage vscode={vscode} />} />
-                <Route path="/chat" element={<ChatPage vscode={vscode} />} />
-                <Route path="/nativeElements" element={<NativeElementsPage />} />
-                <Route path="*" element={<LoginPage />} />
-            </Routes>
+            <AuthProvider>
+                <Routes>
+                    <Route path="/" element={<PrivateRoute><ChatPage vscode={vscode} /></PrivateRoute>} />
+                    <Route path="/chat" element={<PrivateRoute><ChatPage vscode={vscode} /></PrivateRoute>} />
+                    <Route path="*" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                </Routes>
+            </AuthProvider>
         </BrowserRouter>
     )
 }

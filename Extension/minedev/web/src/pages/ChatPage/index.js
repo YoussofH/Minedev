@@ -76,7 +76,6 @@ const ChatPage = ({ vscode }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         (0, api_1.vsShowInfoMessage)(vscode, dataToSend);
-        (0, api_1.vsSendRequest)(vscode, 'GET', 'plans', {});
         setDataToSend('');
     };
     return (<div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">

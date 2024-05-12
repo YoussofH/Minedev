@@ -5,7 +5,7 @@ import { IoSend } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
 import { RiRobot2Line } from "react-icons/ri";
 import Alert from '../../components/Alert';
-import { vsShowInfoMessage, vsSendRequest } from '../../ReactToVS/api';
+import { vsShowInfoMessage } from '../../ReactToVS/api';
 
 const messagesTemplate = [
     {
@@ -60,7 +60,6 @@ const ChatPage = ({ vscode }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         vsShowInfoMessage(vscode, dataToSend);
-        vsSendRequest(vscode, 'GET', 'plans', {});
         setDataToSend('');
     }
 
