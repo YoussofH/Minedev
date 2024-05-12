@@ -33,27 +33,40 @@ const io5_1 = require("react-icons/io5");
 const fa_1 = require("react-icons/fa");
 const ri_1 = require("react-icons/ri");
 const Alert_1 = __importDefault(require("../../components/Alert"));
-const api_1 = require("../../ReactToVS/api");
-const messagesTemplate = [
-    {
-        text: "Welcome to Minedev! How can I assist you today?",
-        isBot: true,
-        timestamp: "2024-06-09T10:33:06.763Z",
-        id: "156"
-    },
-    {
-        text: "Make a python Fibonacci fxn",
-        isBot: false,
-        timestamp: "2024-06-09T11:33:06.763Z",
-        id: "157"
-    },
-];
+const sendRequest_1 = __importDefault(require("../../remote/sendRequest"));
 const ChatPage = ({ vscode }) => {
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const [showAlert, setShowAlert] = (0, react_1.useState)(false);
     const [alertMessage, setAlertMessage] = (0, react_1.useState)('');
-    const [messages, setMessages] = (0, react_1.useState)(messagesTemplate);
+    const [messages, setMessages] = (0, react_1.useState)(null);
+    const handleDismissAlert = () => {
+        setShowAlert(false);
+        setAlertMessage('');
+    };
+    const handleInputChange = (event) => {
+        setDataToSend(event.target.value);
+    };
+    const combineAndSortMessages = async (conversationId) => {
+        try {
+            const userMessagesResponse = await (0, sendRequest_1.default)("GET", `/user/prompt?conversation=${conversationId}`);
+            const chatbotResponsesResponse = await (0, sendRequest_1.default)("GET", `/bot/responses?conversation=${conversationId}`);
+            const userMessages = userMessagesResponse;
+            const chatbotResponses = chatbotResponsesResponse.map((message) => {
+                return { ...message, isBot: true };
+            });
+            const allMessages = [...userMessages, ...chatbotResponses];
+            allMessages.sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
+            return allMessages;
+        }
+        catch (error) {
+            console.error("Error fetching messages:", error);
+            return [];
+        }
+    };
     (0, react_1.useEffect)(() => {
+        combineAndSortMessages(3).then(msgs => {
+            setMessages(msgs);
+        });
         const handleReceiveMessage = (event) => {
             const message = event.data;
             if (message.command === 'showMessage') {
@@ -62,33 +75,24 @@ const ChatPage = ({ vscode }) => {
             }
         };
         window.addEventListener('message', handleReceiveMessage);
-        return () => {
-            window.removeEventListener('message', handleReceiveMessage); // Cleanup
-        };
+        return () => { window.removeEventListener('message', handleReceiveMessage); };
     }, []);
-    const handleDismissAlert = () => {
-        setShowAlert(false);
-        setAlertMessage('');
-    };
-    const handleInputChange = (event) => {
-        setDataToSend(event.target.value);
-    };
     const handleSubmit = (event) => {
         event.preventDefault();
-        (0, api_1.vsShowInfoMessage)(vscode, dataToSend);
+        //vsShowInfoMessage(vscode, dataToSend);
         setDataToSend('');
     };
     return (<div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
             {showAlert && (<Alert_1.default onDismiss={handleDismissAlert}>{alertMessage}</Alert_1.default>)}
             <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
-                {messages.map((message) => {
-            return message.isBot ? (<div key={message.id} className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
-                        <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line size={40}/></div>
-                        <p>{message.text}</p>
-                    </div>) : (<div key={message.id} className="flex flex-col justify-start gap-2 p-5">
-                        <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar"/>
-                        <p>{message.text}</p>
-                    </div>);
+                {messages?.map((message, index) => {
+            return message.isBot ? (<div key={index} className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
+                            <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line size={40}/></div>
+                            <p>{message.content}</p>
+                        </div>) : (<div key={index} className="flex flex-col justify-start gap-2 p-5">
+                            <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar"/>
+                            <p>{message.content}</p>
+                        </div>);
         })}
             </div>
 
