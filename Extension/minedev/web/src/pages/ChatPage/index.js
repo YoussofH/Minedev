@@ -34,11 +34,22 @@ const fa_1 = require("react-icons/fa");
 const ri_1 = require("react-icons/ri");
 const Alert_1 = __importDefault(require("../../components/Alert"));
 const sendRequest_1 = __importDefault(require("../../remote/sendRequest"));
+const Button_1 = __importDefault(require("../../components/Button"));
+const AuthContext_1 = __importDefault(require("../../context/AuthContext"));
 const ChatPage = ({ vscode }) => {
+    let { logoutUser } = (0, react_1.useContext)(AuthContext_1.default);
+    const [conversationId, setConversationId] = (0, react_1.useState)(3);
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const [showAlert, setShowAlert] = (0, react_1.useState)(false);
     const [alertMessage, setAlertMessage] = (0, react_1.useState)('');
     const [messages, setMessages] = (0, react_1.useState)(null);
+    const messagesEndRef = (0, react_1.useRef)(null);
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    (0, react_1.useEffect)(() => {
+        scrollToBottom();
+    }, [messages]);
     const handleDismissAlert = () => {
         setShowAlert(false);
         setAlertMessage('');
@@ -46,7 +57,7 @@ const ChatPage = ({ vscode }) => {
     const handleInputChange = (event) => {
         setDataToSend(event.target.value);
     };
-    const combineAndSortMessages = async (conversationId) => {
+    const combineAndSortMessages = async () => {
         try {
             const userMessagesResponse = await (0, sendRequest_1.default)("GET", `/user/prompt?conversation=${conversationId}`);
             const chatbotResponsesResponse = await (0, sendRequest_1.default)("GET", `/bot/responses?conversation=${conversationId}`);
@@ -64,7 +75,7 @@ const ChatPage = ({ vscode }) => {
         }
     };
     (0, react_1.useEffect)(() => {
-        combineAndSortMessages(3).then(msgs => {
+        combineAndSortMessages().then(msgs => {
             setMessages(msgs);
         });
         const handleReceiveMessage = (event) => {
@@ -77,23 +88,31 @@ const ChatPage = ({ vscode }) => {
         window.addEventListener('message', handleReceiveMessage);
         return () => { window.removeEventListener('message', handleReceiveMessage); };
     }, []);
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        (0, sendRequest_1.default)("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
+            console.log(data);
+        });
         //vsShowInfoMessage(vscode, dataToSend);
         setDataToSend('');
     };
-    return (<div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200 text-gray-800">
+    return (<div className="flex flex-col items-center justify-between w-full min-h-screen bg-gray-50 text-gray-800">
             {showAlert && (<Alert_1.default onDismiss={handleDismissAlert}>{alertMessage}</Alert_1.default>)}
-            <div className='flex flex-col justify-start w-full h-full grow overflow-auto'>
+            <div className="py-3 px-2 flex flex-row justify-end w-full">
+                <Button_1.default variant="logout" onClick={logoutUser}>Logout</Button_1.default>
+            </div>
+
+            <div className='flex flex-col flex-grow h-0 justify-start min-h-full overflow-y-auto w-full'>
                 {messages?.map((message, index) => {
-            return message.isBot ? (<div key={index} className="flex flex-col justify-start gap-2 bg-gray-200 p-5">
+            return message.isBot ? (<div key={index} className="flex flex-col justify-start gap-2 bg-gray-50 p-3">
                             <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line size={40}/></div>
                             <p>{message.content}</p>
-                        </div>) : (<div key={index} className="flex flex-col justify-start gap-2 p-5">
+                        </div>) : (<div key={index} className="flex flex-col justify-start gap-2 p-3">
                             <img className="w-7 h-7 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar"/>
                             <p>{message.content}</p>
                         </div>);
         })}
+                <span ref={messagesEndRef}/>
             </div>
 
             <form onSubmit={handleSubmit} className="flex items-center w-full p-5">
@@ -102,7 +121,7 @@ const ChatPage = ({ vscode }) => {
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-neutral-400">
                         <wi_1.WiStars size={23}/>
                     </div>
-                    <input type="text" value={dataToSend} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter a prompt." required/>
+                    <input type="text" value={dataToSend} onChange={handleInputChange} className="text-sm rounded-lg block w-full ps-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white" placeholder="Enter a prompt." required/>
                     <button type="button" className="absolute inset-y-0 end-0 flex items-center pe-3 text-neutral-400 hover:text-neutral-300">
                         <fa_1.FaMicrophone />
                     </button>
