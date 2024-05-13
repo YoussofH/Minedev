@@ -92,4 +92,5 @@ class UserProfileListCreateView(ListCreateAPIView):
 
     
 class CustomTokenObtainPairView(TokenObtainPairView):
+    permission_classes = [AllowAny]
     serializer_class = CustomTokenObtainPairSerializer
