@@ -69,7 +69,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
 
         const messages = await getMockAPIMessages();
-        setTimeout(function () { vscode.commands.executeCommand("minedev.vsToReact", { command: "showMessage", body: JSON.stringify(messages) }); }, 5000);
+        setTimeout(function () { vscode.commands.executeCommand("minedev.vsToReact", { command: "showMessage", body: "Welcome back. Happy to see you again!" }); }, 5000);
         //end of logic part
 
         panel.onDidDispose(
