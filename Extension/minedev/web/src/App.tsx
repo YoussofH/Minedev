@@ -15,9 +15,8 @@ const App = () => {
         <BrowserRouter>
             <AuthProvider>
                 <Routes>
-                    <Route path="/" element={<PrivateRoute><ChatPage vscode={vscode} /></PrivateRoute>} />
+                    <Route path="*" element={<PrivateRoute><ChatPage vscode={vscode} /></PrivateRoute>} />
                     <Route path="/chat" element={<PrivateRoute><ChatPage vscode={vscode} /></PrivateRoute>} />
-                    <Route path="*" element={<LoginPage />} />
                     <Route path="/login" element={<LoginPage />} />
                 </Routes>
             </AuthProvider>
