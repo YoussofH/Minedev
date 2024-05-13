@@ -37,6 +37,7 @@ const sendRequest_1 = __importDefault(require("../../remote/sendRequest"));
 const Button_1 = __importDefault(require("../../components/Button"));
 const AuthContext_1 = __importDefault(require("../../context/AuthContext"));
 const ChatPage = ({ vscode }) => {
+    const chatSocketRef = (0, react_1.useRef)(null);
     let { logoutUser } = (0, react_1.useContext)(AuthContext_1.default);
     const [conversationId, setConversationId] = (0, react_1.useState)(3);
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
@@ -75,6 +76,17 @@ const ChatPage = ({ vscode }) => {
         }
     };
     (0, react_1.useEffect)(() => {
+        const chatSocket = new WebSocket('ws://'
+            + '18.219.38.17:8000'
+            + '/ws/chat/'
+            + conversationId
+            + '/');
+        chatSocketRef.current = chatSocket;
+        console.log(chatSocket);
+        // Listen for messages
+        chatSocket.addEventListener("message", event => {
+            console.log("Message from server ", event.data);
+        });
         combineAndSortMessages().then(msgs => {
             setMessages(msgs);
         });
@@ -93,6 +105,9 @@ const ChatPage = ({ vscode }) => {
         (0, sendRequest_1.default)("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
             console.log(data);
         });
+        chatSocketRef.current.send(JSON.stringify({
+            'message': dataToSend
+        }));
         //vsShowInfoMessage(vscode, dataToSend);
         setDataToSend('');
     };

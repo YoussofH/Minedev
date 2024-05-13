@@ -12,6 +12,7 @@ import AuthContext from '../../context/AuthContext';
 
 
 const ChatPage = ({ vscode }) => {
+    const chatSocketRef = useRef(null);
     let { logoutUser } = useContext(AuthContext);
 
     const [conversationId, setConversationId] = useState(3);
@@ -64,6 +65,20 @@ const ChatPage = ({ vscode }) => {
 
 
     useEffect(() => {
+        const chatSocket = new WebSocket(
+            'ws://'
+            + '18.219.38.17:8000'
+            + '/ws/chat/'
+            + conversationId
+            + '/'
+        );
+        chatSocketRef.current = chatSocket;
+        console.log(chatSocket)
+        // Listen for messages
+        chatSocket.addEventListener("message", event => {
+            console.log("Message from server ", event.data)
+        });
+
         combineAndSortMessages().then(msgs => {
             setMessages(msgs);
         })
@@ -86,6 +101,12 @@ const ChatPage = ({ vscode }) => {
         sendRequest("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
             console.log(data)
         })
+
+        
+        chatSocketRef.current.send(JSON.stringify({
+                'message': dataToSend
+            }));
+        
 
         //vsShowInfoMessage(vscode, dataToSend);
         setDataToSend('');
