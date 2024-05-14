@@ -20,7 +20,7 @@ const FeaturesSection = () => {
                     {features.map((feature, index) => (
                         index % 2 === 0 ? (
                             <div key={index} className="flex justify-center bg-neutral-900 rounded-2xl pt-10 pl-16 gap-10 overflow-hidden">
-                                <div className="flex flex-col gap-5 justify-center">
+                                <div className="flex flex-col gap-5 justify-center max-w-96">
                                     <div className='bg-slate-100 rounded-full px-3 py-1 border-2 border-slate-400 flex flex-row gap-3 w-44 justify-center items-center'>
                                         {feature.icon}
                                         <span>
@@ -35,13 +35,13 @@ const FeaturesSection = () => {
                                         {feature.description}
                                     </p>
                                 </div>
-                                <div>
+                                <div className='w-full'>
                                     <img src={feature.image} className='h-full' alt="code feature" />
                                 </div>
                             </div>
                         ) : (
                             <div key={index} className="flex justify-center bg-neutral-900 rounded-xl pt-10 pr-16 gap-10 overflow-hidden">
-                                <div>
+                                <div className='w-full'>
                                     <img src={feature.image} className='h-full' alt="code feature" />
                                 </div>
                                 <div className="flex flex-col gap-5 justify-center">
