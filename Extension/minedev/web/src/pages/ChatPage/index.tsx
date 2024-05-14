@@ -12,6 +12,9 @@ import AuthContext from '../../context/AuthContext';
 
 
 const ChatPage = ({ vscode }) => {
+    const [currBotResponse, setCurrBotResponse] = useState("")
+    const [showStreamBotResponse, setShowStreamBotResponse] = useState(false)
+
     const chatSocketRef = useRef(null);
     let { logoutUser } = useContext(AuthContext);
 
@@ -77,11 +80,23 @@ const ChatPage = ({ vscode }) => {
         // Listen for messages
         chatSocket.addEventListener("message", event => {
             data = JSON.parse(event.data)
-            console.log(data)
+            if (data.message) {
+                setShowStreamBotResponse(true)
+                console.log(data)
+                setCurrBotResponse((prev) => prev + data.message)
+                scrollToBottom()
+            }
+
             if (data?.isStreamDone === true) {
                 setAlertMessage("Response done!")
+                setShowAlert(true)
+                setTimeout(setShowAlert(false), 2000);
+                
+                
                 combineAndSortMessages().then(msgs => {
                     setMessages(msgs);
+                    setCurrBotResponse("")
+                    setShowStreamBotResponse(false)
                 })
                 return
             }
@@ -101,13 +116,17 @@ const ChatPage = ({ vscode }) => {
         };
 
         window.addEventListener('message', handleReceiveMessage);
-        return () => { window.removeEventListener('message', handleReceiveMessage); };
+        return () => {
+            window.removeEventListener('message', handleReceiveMessage);
+            chatSocket.removeEventListener('message');
+        };
     }, []);
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setMessages(messages => [...messages, { content: dataToSend }]) // show user prompt
+        setShowStreamBotResponse(true)
 
         sendRequest("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
             console.log(data)
@@ -122,8 +141,8 @@ const ChatPage = ({ vscode }) => {
         setDataToSend('');
     }
 
-    const handleMicrophoneClick = ()=>{
-        vsOpenLink(vscode, "http://localhost:5000/voicePage")
+    const handleMicrophoneClick = () => {
+        vsOpenLink(vscode, `http://localhost:3000/voicePage/${conversationId}`)
     }
 
     return (
@@ -133,7 +152,7 @@ const ChatPage = ({ vscode }) => {
                 <Button variant="logout" onClick={logoutUser}>Logout</Button>
             </div>
 
-            <div className='flex flex-col flex-grow h-0 justify-start min-h-full overflow-y-auto w-full'>
+            <div className='flex flex-col flex-grow h-0 justify-start min-h-full overflow-y-auto w-full mb-2'>
                 {messages?.map((message, index) => {
                     return message.isBot ? (
                         <div key={index} className="flex flex-col justify-start gap-2 bg-gray-50 p-3">
@@ -145,6 +164,10 @@ const ChatPage = ({ vscode }) => {
                             <p>{message.content}</p>
                         </div>);
                 })}
+                {showStreamBotResponse && <div className="flex flex-col justify-start gap-2 bg-gray-50 p-3">
+                    <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><RiRobot2Line size={40} /></div>
+                    <p>{currBotResponse}</p>
+                </div>}
                 <span ref={messagesEndRef} />
             </div>
 
