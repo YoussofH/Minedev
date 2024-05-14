@@ -15,7 +15,7 @@ const App = () => {
                     <Route path="*" element={<LandingPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
-                    <Route path="/voicePage" element={<PrivateRoute><VoicePage /></PrivateRoute>} />
+                    <Route path="/voicePage/:conversationId" element={<PrivateRoute><VoicePage /></PrivateRoute>} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

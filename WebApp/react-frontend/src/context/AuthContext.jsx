@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
         e.preventDefault()
 
         await sendRequest("POST", "/user/register/", { fullname: e.target.fullname.value, email: e.target.email.value, password: e.target.password.value }, false)
-            .then((response) => {
+            .then(() => {
                 navigate('/login');
             }).catch((error) => {
                 console.log("Something went wrong with signup");
@@ -28,9 +28,9 @@ export const AuthProvider = ({ children }) => {
         e.preventDefault()
 
         await sendRequest("POST", "/user/token/", { email: e.target.email.value, password: e.target.password.value }, false)
-            .then((response) => {
-                    localStorage.setItem('authTokens', JSON.stringify(response.data));
-                    setAuthTokens(response.data);
+            .then((data) => {
+                    localStorage.setItem('authTokens', JSON.stringify(data));
+                    setAuthTokens(data);
                     setIsAuthenticated(true);
                     navigate('/');
             }).catch((error) => {

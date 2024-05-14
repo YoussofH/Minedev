@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import useSpeechToText from 'react-hook-speech-to-text';
+import sendRequest from '../../remote/sendRequest';
+import {useParams} from "react-router-dom";
 
-const VoicePage = () => {
+
+const VoicePage = ({ match }) => {
+    const {conversationId} = useParams();
 
     const {
         error,
@@ -14,6 +18,15 @@ const VoicePage = () => {
         continuous: true,
         useLegacyResults: false
     });
+
+    useEffect(() => {
+        const lastSentence = results[results.length - 1];
+        if (lastSentence !== "" && results.length > 0) {
+            console.log(lastSentence);
+        }
+    }, [results]);
+
+
     if (error) return <p>Web Speech API is not available in this browser 🤷‍</p>;
     return (
         <div>
