@@ -32,6 +32,9 @@ export function activate(context: vscode.ExtensionContext) {
         commands.registerCommand('minedev.showInfoMessage', (msg) => {
             vscode.window.showInformationMessage(msg);
         });
+        commands.registerCommand('minedev.openLink', (link) => {
+            vscode.env.openExternal(vscode.Uri.parse(link));
+        });
 
         //register VS to React command
         let disposable = vscode.commands.registerCommand('minedev.vsToReact', async ({ command, body }) => {
@@ -49,6 +52,9 @@ export function activate(context: vscode.ExtensionContext) {
                 switch (msg.command) {
                     case 'showInfoMessage':
                         vscode.commands.executeCommand('minedev.showInfoMessage', msg.data);
+                        break;
+                    case 'openLink':
+                        vscode.commands.executeCommand('minedev.openLink', msg.link);
                         break;
                     case 'sendRequest':
                         const { method, path, body } = msg.data;

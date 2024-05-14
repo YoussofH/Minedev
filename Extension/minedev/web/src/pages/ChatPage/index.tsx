@@ -5,7 +5,7 @@ import { IoSend } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
 import { RiRobot2Line } from "react-icons/ri";
 import Alert from '../../components/Alert';
-import { vsShowInfoMessage } from '../../ReactToVS/api';
+import { vsShowInfoMessage, vsOpenLink } from '../../ReactToVS/api';
 import sendRequest from '../../remote/sendRequest';
 import Button from '../../components/Button';
 import AuthContext from '../../context/AuthContext';
@@ -122,6 +122,10 @@ const ChatPage = ({ vscode }) => {
         setDataToSend('');
     }
 
+    const handleMicrophoneClick = ()=>{
+        vsOpenLink(vscode, "http://localhost:5000/voicePage")
+    }
+
     return (
         <div className="flex flex-col items-center justify-between w-full min-h-screen bg-gray-50 text-gray-800">
             {showAlert && (<Alert onDismiss={handleDismissAlert}>{alertMessage}</Alert>)}
@@ -151,7 +155,7 @@ const ChatPage = ({ vscode }) => {
                         <WiStars size={23} />
                     </div>
                     <input type="text" value={dataToSend} onChange={handleInputChange} className="text-sm rounded-lg block w-full ps-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white" placeholder="Enter a prompt." required />
-                    <button type="button" className="absolute inset-y-0 end-0 flex items-center pe-3 text-neutral-400 hover:text-neutral-300">
+                    <button type="button" onClick={handleMicrophoneClick} className="absolute inset-y-0 end-0 flex items-center pe-3 text-neutral-400 hover:text-neutral-300">
                         <FaMicrophone />
                     </button>
                 </div>

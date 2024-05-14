@@ -22,6 +22,10 @@
                 "title": "Show Informational Message"
             },
             {
+                "command": "minedev.openLink",
+                "title": "Open External Link in Browser"
+            },
+            {
                 "command": "minedev.vsToReact",
                 "title": "Send from vscode to React"
             }

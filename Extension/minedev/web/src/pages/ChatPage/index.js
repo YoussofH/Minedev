@@ -33,6 +33,7 @@ const io5_1 = require("react-icons/io5");
 const fa_1 = require("react-icons/fa");
 const ri_1 = require("react-icons/ri");
 const Alert_1 = __importDefault(require("../../components/Alert"));
+const api_1 = require("../../ReactToVS/api");
 const sendRequest_1 = __importDefault(require("../../remote/sendRequest"));
 const Button_1 = __importDefault(require("../../components/Button"));
 const AuthContext_1 = __importDefault(require("../../context/AuthContext"));
@@ -119,6 +120,9 @@ const ChatPage = ({ vscode }) => {
         //vsShowInfoMessage(vscode, dataToSend);
         setDataToSend('');
     };
+    const handleMicrophoneClick = () => {
+        (0, api_1.vsOpenLink)(vscode, "http://localhost:5000/voicePage");
+    };
     return (<div className="flex flex-col items-center justify-between w-full min-h-screen bg-gray-50 text-gray-800">
             {showAlert && (<Alert_1.default onDismiss={handleDismissAlert}>{alertMessage}</Alert_1.default>)}
             <div className="py-3 px-2 flex flex-row justify-end w-full">
@@ -145,7 +149,7 @@ const ChatPage = ({ vscode }) => {
                         <wi_1.WiStars size={23}/>
                     </div>
                     <input type="text" value={dataToSend} onChange={handleInputChange} className="text-sm rounded-lg block w-full ps-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 text-white" placeholder="Enter a prompt." required/>
-                    <button type="button" className="absolute inset-y-0 end-0 flex items-center pe-3 text-neutral-400 hover:text-neutral-300">
+                    <button type="button" onClick={handleMicrophoneClick} className="absolute inset-y-0 end-0 flex items-center pe-3 text-neutral-400 hover:text-neutral-300">
                         <fa_1.FaMicrophone />
                     </button>
                 </div>
