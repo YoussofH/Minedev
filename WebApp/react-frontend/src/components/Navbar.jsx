@@ -30,7 +30,6 @@ const Navbar = () => {
                 <div className='flex gap-2'>
                     {isAuthenticated ? (
                         <div className='flex flex-row justify-center'>
-                            <p className='text-black py-2 mx-2'>Authenticated User</p>
                             <Button variant="logout" onClick={logoutUser}>Logout</Button>
                         </div>
                     ) : (
