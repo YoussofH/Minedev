@@ -10,7 +10,7 @@ from .models import BotResponse, Conversation
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
-        await self.send(text_data=json.dumps({"message": "Welcome here!"}))
+        await self.send(text_data=json.dumps({"welcome": "Welcome here!"}))
 
     async def disconnect(self, close_code):
         pass
@@ -20,7 +20,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json["user_prompt"]
 
         
-
         end_result = ""
 
         async def get_response():
@@ -46,4 +45,4 @@ class ChatConsumer(AsyncWebsocketConsumer):
         conversation_id = int(self.scope['url_route']['kwargs']['room_name'])
         await create_bot_response(conversation_id, end_result)
 
-        await self.send(text_data=json.dumps({"message": "done!!!!!!!!!!!!!"}))
+        await self.send(text_data=json.dumps({"isStreamDone": True}))
