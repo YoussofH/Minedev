@@ -11,33 +11,33 @@ export const navItems = [
     { label: "About", route: "#about" },
     { label: "Features", route: "#features" },
     { label: "Pricing", route: "#pricing" },
-    { label: "Voice Test", route: "voicePage" },
+    { label: "Speech API", route: "voicePage" },
 ];
 
 export const features = [
     {
-        icon: <PiDotsThreeFill size={22}/>,
-        tagText: "Smart Prompts",
-        title: "Easy Integration, Effortless Execution",
-        image: feature1Image,
-        description:
-            "Transform web tasks with our AI-powered toolkit. Create browser automations as intutively as writing a simple prompt. We'll take care of the code for you.",
-    },
-    {
         icon: <PiWaves size={22}/>,
         tagText: "Easy-breezy",
-        title: "Say Goodbye to Selectors",
-        image: feature2Image,
+        title: "Get a high level overview when working in an unfamiliar codebase",
+        image: feature1Image,
         description:
-            "Unlike traditional methods that falter when sites change, our intelligent platform dynamically adjusts, ensuring your automation continues uninterrupted.",
+            "Surface internal libraries and existing patterns. This helps prevent stale code, dependency bloat and frees up time to work on unsolved problems.",
     },
     {
         icon: <TbBulb size={22}/>,
         tagText: "Right Choice",
-        title: "You Chose the Right Solution",
+        title: "Answer the most challenging technical questions",
+        image: feature2Image,
+        description:
+            "Minedev gives you the ability to share thoughts and talk to the AI using our Microphone API.",
+    },
+    {
+        icon: <PiDotsThreeFill size={22}/>,
+        tagText: "Smart Prompts",
+        title: "Generate code using your existing codebase as context",
         image: feature3Image,
         description:
-            "No more face hours of debugging a bunch of copy and pasted code blocks that you do not know how they function deep inside.",
+            "Choose files from your codebase, write a prompt and generate patches, scripts and tests. Minedev is one of the most powerful ways to write code using AI, featuring dependency resolution, line-level granularity of context and templating.",
     },
 ];
 
@@ -48,10 +48,9 @@ export const pricingOptions = [
         price: "$0",
         tip: "Affordable and Essential",
         features: [
-            "Private board sharing",
-            "5 Gb Storage",
+            "Chatbot",
+            "2,048 Token Context",
             "Web Analytics",
-            "Private Mode",
         ],
     },
     {
@@ -60,9 +59,9 @@ export const pricingOptions = [
         price: "$10",
         tip: "Flexible and Scalable",
         features: [
-            "Private board sharing",
-            "10 Gb Storage",
-            "Web Analytics (Advance)",
+            "Chatbot",
+            "Speech API",
+            "4,096 Token Context",
             "Private Mode",
         ],
     },
@@ -72,10 +71,10 @@ export const pricingOptions = [
         price: "$200",
         tip: "Customized for Your Business",
         features: [
-            "Private board sharing",
+            "Define System Responses",
+            "Unlimited Token Context",
             "Unlimited Storage",
-            "High Performance Network",
-            "Private Mode",
+            "Manage Enterprise Users",
         ],
     },
 ];
