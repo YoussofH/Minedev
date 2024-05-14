@@ -27,14 +27,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
-const logo_png_1 = __importDefault(require("../../assets/logo.png"));
 const AuthContext_1 = __importDefault(require("../../context/AuthContext"));
 const LoginPage = () => {
     let { loginUser } = (0, react_1.useContext)(AuthContext_1.default);
     return (<section className="bg-gray-50 min-h-screen">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
-                    <img className="w-8 h-8 mr-2" src={logo_png_1.default} alt="logo"/>
                     Minedev
                 </a>
                 <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">

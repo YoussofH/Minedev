@@ -21,7 +21,7 @@ const ChatPage = ({ vscode }) => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
 
-    const [messages, setMessages] = useState(null);
+    const [messages, setMessages] = useState([]);
 
     const messagesEndRef = useRef<null | HTMLDivElement>(null)
 
@@ -73,10 +73,19 @@ const ChatPage = ({ vscode }) => {
             + '/'
         );
         chatSocketRef.current = chatSocket;
-        console.log(chatSocket)
+
         // Listen for messages
         chatSocket.addEventListener("message", event => {
-            console.log("Message from server ", event.data)
+            data = JSON.parse(event.data)
+            console.log(data)
+            if (data?.isStreamDone === true) {
+                setAlertMessage("Response done!")
+                combineAndSortMessages().then(msgs => {
+                    setMessages(msgs);
+                })
+                return
+            }
+
         });
 
         combineAndSortMessages().then(msgs => {
@@ -98,15 +107,16 @@ const ChatPage = ({ vscode }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setMessages(messages => [...messages, { content: dataToSend }]) // show user prompt
+
         sendRequest("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
             console.log(data)
         })
 
-        
+
         chatSocketRef.current.send(JSON.stringify({
-                'message': dataToSend
-            }));
-        
+            'user_prompt': dataToSend
+        }));
 
         //vsShowInfoMessage(vscode, dataToSend);
         setDataToSend('');

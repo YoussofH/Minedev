@@ -43,7 +43,7 @@ const ChatPage = ({ vscode }) => {
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const [showAlert, setShowAlert] = (0, react_1.useState)(false);
     const [alertMessage, setAlertMessage] = (0, react_1.useState)('');
-    const [messages, setMessages] = (0, react_1.useState)(null);
+    const [messages, setMessages] = (0, react_1.useState)([]);
     const messagesEndRef = (0, react_1.useRef)(null);
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -82,10 +82,17 @@ const ChatPage = ({ vscode }) => {
             + conversationId
             + '/');
         chatSocketRef.current = chatSocket;
-        console.log(chatSocket);
         // Listen for messages
         chatSocket.addEventListener("message", event => {
-            console.log("Message from server ", event.data);
+            data = JSON.parse(event.data);
+            console.log(data);
+            if (data?.isStreamDone === true) {
+                setAlertMessage("Response done!");
+                combineAndSortMessages().then(msgs => {
+                    setMessages(msgs);
+                });
+                return;
+            }
         });
         combineAndSortMessages().then(msgs => {
             setMessages(msgs);
@@ -102,11 +109,12 @@ const ChatPage = ({ vscode }) => {
     }, []);
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setMessages(messages => [...messages, { content: dataToSend }]); // show user prompt
         (0, sendRequest_1.default)("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
             console.log(data);
         });
         chatSocketRef.current.send(JSON.stringify({
-            'message': dataToSend
+            'user_prompt': dataToSend
         }));
         //vsShowInfoMessage(vscode, dataToSend);
         setDataToSend('');
