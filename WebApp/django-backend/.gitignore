@@ -2,3 +2,4 @@ venv
 __pycache__
 .env
 migrations
+generated_ai_audio.mp3
