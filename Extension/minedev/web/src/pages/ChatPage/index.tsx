@@ -5,29 +5,31 @@ import { IoSend } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
 import { RiRobot2Line } from "react-icons/ri";
 import Alert from '../../components/Alert';
-import { vsShowInfoMessage, vsOpenLink } from '../../ReactToVS/api';
+import { vsShowInfoMessage, vsOpenLink, vsGetWorkspaceTree } from '../../ReactToVS/api';
 import sendRequest from '../../remote/sendRequest';
 import Button from '../../components/Button';
 import AuthContext from '../../context/AuthContext';
 
 
 const ChatPage = ({ vscode }) => {
+    const [allowAskforTitle, setAllowAskforTitle] = useState(false);
+    const [projectTitle, setProjectTitle] = useState("");
+    const [workspaceTree, setWorkspaceTree] = useState("");
+    const titleSocketRef = useRef(null);
+
     const [currBotResponse, setCurrBotResponse] = useState("")
     const [showStreamBotResponse, setShowStreamBotResponse] = useState(false)
-
     const chatSocketRef = useRef(null);
+
     let { logoutUser } = useContext(AuthContext);
 
-    const [conversationId, setConversationId] = useState(3);
-
-    const [dataToSend, setDataToSend] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
 
+    const [conversationId, setConversationId] = useState(3);
+    const [dataToSend, setDataToSend] = useState('');
     const [messages, setMessages] = useState([]);
-
     const messagesEndRef = useRef<null | HTMLDivElement>(null)
-
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
@@ -36,15 +38,26 @@ const ChatPage = ({ vscode }) => {
         scrollToBottom()
     }, [messages]);
 
+    useEffect(() => {
+        if (allowAskforTitle) {
+            titleSocketRef.current.send(JSON.stringify({
+                'workspaceTree': workspaceTree
+            }));
+        }
+        setAllowAskforTitle(false);
+    }, [allowAskforTitle]);
+
+    useEffect(() => {
+        console.log(projectTitle);
+    }, [projectTitle]);
+
     const handleDismissAlert = () => {
         setShowAlert(false);
         setAlertMessage('');
     };
-
     const handleInputChange = (event) => {
         setDataToSend(event.target.value);
     };
-
     const combineAndSortMessages = async () => {
         try {
             const userMessagesResponse = await sendRequest("GET", `/user/prompt?conversation=${conversationId}`);
@@ -68,6 +81,24 @@ const ChatPage = ({ vscode }) => {
 
 
     useEffect(() => {
+        const titleSocket = new WebSocket(
+            'ws://'
+            + '18.219.38.17:8000'
+            + '/ws/title/'
+        );
+        titleSocketRef.current = titleSocket;
+        vsGetWorkspaceTree(vscode);
+
+        titleSocket.addEventListener("open", event => {
+            setAllowAskforTitle(true);
+        });
+        titleSocket.addEventListener("message", event => {
+            data = JSON.parse(event.data)
+            if (data.project_title) {
+                setProjectTitle(data.project_title);
+            }
+        });
+
         const chatSocket = new WebSocket(
             'ws://'
             + '18.219.38.17:8000'
@@ -82,7 +113,6 @@ const ChatPage = ({ vscode }) => {
             data = JSON.parse(event.data)
             if (data.message) {
                 setShowStreamBotResponse(true)
-                console.log(data)
                 setCurrBotResponse((prev) => prev + data.message)
                 scrollToBottom()
             }
@@ -91,8 +121,8 @@ const ChatPage = ({ vscode }) => {
                 setAlertMessage("Response done!")
                 setShowAlert(true)
                 setTimeout(setShowAlert(false), 2000);
-                
-                
+
+
                 combineAndSortMessages().then(msgs => {
                     setMessages(msgs);
                     setCurrBotResponse("")
@@ -100,7 +130,6 @@ const ChatPage = ({ vscode }) => {
                 })
                 return
             }
-
         });
 
         combineAndSortMessages().then(msgs => {
@@ -113,12 +142,15 @@ const ChatPage = ({ vscode }) => {
                 setAlertMessage(message.content);
                 setShowAlert(true);
             }
+            if (message.command === 'sendWorkspaceTree') {
+                setWorkspaceTree(message.content);
+            }
         };
 
         window.addEventListener('message', handleReceiveMessage);
         return () => {
             window.removeEventListener('message', handleReceiveMessage);
-            chatSocket.removeEventListener('message');
+            chatSocket.removeEventListener('message', chatSocket);
         };
     }, []);
 
@@ -129,7 +161,7 @@ const ChatPage = ({ vscode }) => {
         setShowStreamBotResponse(true)
 
         sendRequest("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
-            console.log(data)
+            //success
         })
 
 
@@ -148,11 +180,13 @@ const ChatPage = ({ vscode }) => {
     return (
         <div className="flex flex-col items-center justify-between w-full min-h-screen bg-gray-50 text-gray-800">
             {showAlert && (<Alert onDismiss={handleDismissAlert}>{alertMessage}</Alert>)}
-            <div className="py-3 px-2 flex flex-row justify-end w-full">
+            <div className="py-3 px-2 flex flex-row justify-between w-full">
+                <span class="bg-blue-100 text-blue-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">PRO</span>
+                <h3 class="flex items-center text-lg font-extrabold text-gray-800">{projectTitle}</h3>
                 <Button variant="logout" onClick={logoutUser}>Logout</Button>
             </div>
 
-            <div className='flex flex-col flex-grow h-0 justify-start min-h-full overflow-y-auto w-full mb-2'>
+            <div className='flex flex-col flex-grow h-0 justify-start min-h-full overflow-y-auto w-full mb-2 pb-2'>
                 {messages?.map((message, index) => {
                     return message.isBot ? (
                         <div key={index} className="flex flex-col justify-start gap-2 bg-gray-50 p-3">

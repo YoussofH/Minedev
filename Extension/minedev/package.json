@@ -15,20 +15,29 @@
         "commands": [
             {
                 "command": "minedev.reactWebview",
-                "title": "React Web View"
+                "title": "React Web View",
+				"category": "Minedev"
             },
             {
                 "command": "minedev.showInfoMessage",
-                "title": "Show Informational Message"
+                "title": "Show Informational Message",
+				"category": "Minedev"
             },
             {
                 "command": "minedev.openLink",
-                "title": "Open External Link in Browser"
+                "title": "Open External Link in Browser",
+				"category": "Minedev"
             },
             {
                 "command": "minedev.vsToReact",
-                "title": "Send from vscode to React"
-            }
+                "title": "Send from vscode to React",
+				"category": "Minedev"
+            },
+			{
+				"command": "minedev.readWriteFile",
+				"title": "Read and Write file",
+				"category": "Minedev"
+			}
         ]
     },
     "scripts": {

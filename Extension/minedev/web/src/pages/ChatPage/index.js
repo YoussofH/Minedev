@@ -38,14 +38,18 @@ const sendRequest_1 = __importDefault(require("../../remote/sendRequest"));
 const Button_1 = __importDefault(require("../../components/Button"));
 const AuthContext_1 = __importDefault(require("../../context/AuthContext"));
 const ChatPage = ({ vscode }) => {
+    const [allowAskforTitle, setAllowAskforTitle] = (0, react_1.useState)(false);
+    const [projectTitle, setProjectTitle] = (0, react_1.useState)("");
+    const [workspaceTree, setWorkspaceTree] = (0, react_1.useState)("");
+    const titleSocketRef = (0, react_1.useRef)(null);
     const [currBotResponse, setCurrBotResponse] = (0, react_1.useState)("");
     const [showStreamBotResponse, setShowStreamBotResponse] = (0, react_1.useState)(false);
     const chatSocketRef = (0, react_1.useRef)(null);
     let { logoutUser } = (0, react_1.useContext)(AuthContext_1.default);
-    const [conversationId, setConversationId] = (0, react_1.useState)(3);
-    const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const [showAlert, setShowAlert] = (0, react_1.useState)(false);
     const [alertMessage, setAlertMessage] = (0, react_1.useState)('');
+    const [conversationId, setConversationId] = (0, react_1.useState)(3);
+    const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const [messages, setMessages] = (0, react_1.useState)([]);
     const messagesEndRef = (0, react_1.useRef)(null);
     const scrollToBottom = () => {
@@ -54,6 +58,17 @@ const ChatPage = ({ vscode }) => {
     (0, react_1.useEffect)(() => {
         scrollToBottom();
     }, [messages]);
+    (0, react_1.useEffect)(() => {
+        if (allowAskforTitle) {
+            titleSocketRef.current.send(JSON.stringify({
+                'workspaceTree': workspaceTree
+            }));
+        }
+        setAllowAskforTitle(false);
+    }, [allowAskforTitle]);
+    (0, react_1.useEffect)(() => {
+        console.log(projectTitle);
+    }, [projectTitle]);
     const handleDismissAlert = () => {
         setShowAlert(false);
         setAlertMessage('');
@@ -79,6 +94,20 @@ const ChatPage = ({ vscode }) => {
         }
     };
     (0, react_1.useEffect)(() => {
+        const titleSocket = new WebSocket('ws://'
+            + '18.219.38.17:8000'
+            + '/ws/title/');
+        titleSocketRef.current = titleSocket;
+        (0, api_1.vsGetWorkspaceTree)(vscode);
+        titleSocket.addEventListener("open", event => {
+            setAllowAskforTitle(true);
+        });
+        titleSocket.addEventListener("message", event => {
+            data = JSON.parse(event.data);
+            if (data.project_title) {
+                setProjectTitle(data.project_title);
+            }
+        });
         const chatSocket = new WebSocket('ws://'
             + '18.219.38.17:8000'
             + '/ws/chat/'
@@ -90,7 +119,6 @@ const ChatPage = ({ vscode }) => {
             data = JSON.parse(event.data);
             if (data.message) {
                 setShowStreamBotResponse(true);
-                console.log(data);
                 setCurrBotResponse((prev) => prev + data.message);
                 scrollToBottom();
             }
@@ -115,11 +143,14 @@ const ChatPage = ({ vscode }) => {
                 setAlertMessage(message.content);
                 setShowAlert(true);
             }
+            if (message.command === 'sendWorkspaceTree') {
+                setWorkspaceTree(message.content);
+            }
         };
         window.addEventListener('message', handleReceiveMessage);
         return () => {
             window.removeEventListener('message', handleReceiveMessage);
-            chatSocket.removeEventListener('message');
+            chatSocket.removeEventListener('message', chatSocket);
         };
     }, []);
     const handleSubmit = async (event) => {
@@ -127,7 +158,7 @@ const ChatPage = ({ vscode }) => {
         setMessages(messages => [...messages, { content: dataToSend }]); // show user prompt
         setShowStreamBotResponse(true);
         (0, sendRequest_1.default)("POST", `/user/prompt/`, { content: dataToSend, conversation: conversationId }).then(data => {
-            console.log(data);
+            //success
         });
         chatSocketRef.current.send(JSON.stringify({
             'user_prompt': dataToSend
@@ -140,11 +171,13 @@ const ChatPage = ({ vscode }) => {
     };
     return (<div className="flex flex-col items-center justify-between w-full min-h-screen bg-gray-50 text-gray-800">
             {showAlert && (<Alert_1.default onDismiss={handleDismissAlert}>{alertMessage}</Alert_1.default>)}
-            <div className="py-3 px-2 flex flex-row justify-end w-full">
+            <div className="py-3 px-2 flex flex-row justify-between w-full">
+                <span class="bg-blue-100 text-blue-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">PRO</span>
+                <h3 class="flex items-center text-lg font-extrabold text-gray-800">{projectTitle}</h3>
                 <Button_1.default variant="logout" onClick={logoutUser}>Logout</Button_1.default>
             </div>
 
-            <div className='flex flex-col flex-grow h-0 justify-start min-h-full overflow-y-auto w-full mb-2'>
+            <div className='flex flex-col flex-grow h-0 justify-start min-h-full overflow-y-auto w-full mb-2 pb-2'>
                 {messages?.map((message, index) => {
             return message.isBot ? (<div key={index} className="flex flex-col justify-start gap-2 bg-gray-50 p-3">
                             <div className='h-7 w-7 rounded-full border-2 border-gray-400 p-1 text-gray-400 flex justify-center items-center'><ri_1.RiRobot2Line size={40}/></div>
