@@ -111,10 +111,13 @@ const ChatPage = ({ vscode }) => {
         // Listen for messages
         chatSocket.addEventListener("message", event => {
             data = JSON.parse(event.data)
+            
             if (data.message) {
                 setShowStreamBotResponse(true)
                 setCurrBotResponse((prev) => prev + data.message)
                 scrollToBottom()
+            }else{
+                console.log(data);
             }
 
             if (data?.isStreamDone === true) {

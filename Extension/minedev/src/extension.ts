@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
         async function getHierarchicalPaths(folderUri: vscode.Uri) {
             const directoryData = {
-                name: folderUri.path,
+                directory_name: folderUri.path,
                 children: [],
             };
 
@@ -53,7 +53,9 @@ export function activate(context: vscode.ExtensionContext) {
                     const subFolderData = await getHierarchicalPaths(fileUri);
                     directoryData.children.push(subFolderData);
                 } else {
-                    directoryData.children.push({ name: item }); // Add file as a child
+                    const readData = await vscode.workspace.fs.readFile(fileUri);
+                    const readStr = Buffer.from(readData).toString('utf8');
+                    directoryData.children.push({ file_name: item, file_content: readStr }); // Add file as a child
                 }
             }
             return directoryData;
@@ -75,7 +77,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const readData = await vscode.workspace.fs.readFile(fileUri);
                 const readStr = Buffer.from(readData).toString('utf8');
                 //vscode.window.showInformationMessage(readStr);
-                 vscode.commands.executeCommand("minedev.vsToReact", { command: "sendWorkspaceTree", body: readStr });
+                vscode.commands.executeCommand("minedev.vsToReact", { command: "sendWorkspaceTree", body: readStr });
             } catch (error) {
                 vscode.window.showErrorMessage(`Error getting file paths: ${error.message}`);
             }

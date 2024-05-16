@@ -122,6 +122,9 @@ const ChatPage = ({ vscode }) => {
                 setCurrBotResponse((prev) => prev + data.message);
                 scrollToBottom();
             }
+            else {
+                console.log(data);
+            }
             if (data?.isStreamDone === true) {
                 setAlertMessage("Response done!");
                 setShowAlert(true);
