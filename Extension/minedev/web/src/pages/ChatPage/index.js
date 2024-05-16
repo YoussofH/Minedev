@@ -103,7 +103,7 @@ const ChatPage = ({ vscode }) => {
             setAllowAskforTitle(true);
         });
         titleSocket.addEventListener("message", event => {
-            data = JSON.parse(event.data);
+            let data = JSON.parse(event.data);
             if (data.project_title) {
                 setProjectTitle(data.project_title);
             }
@@ -172,7 +172,7 @@ const ChatPage = ({ vscode }) => {
     return (<div className="flex flex-col items-center justify-between w-full min-h-screen bg-gray-50 text-gray-800">
             {showAlert && (<Alert_1.default onDismiss={handleDismissAlert}>{alertMessage}</Alert_1.default>)}
             <div className="py-3 px-2 flex flex-row justify-between w-full">
-                <span class="bg-blue-100 text-blue-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">PRO</span>
+                <span class="bg-blue-100 text-blue-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2 my-auto">PRO</span>
                 <h3 class="flex items-center text-lg font-extrabold text-gray-800">{projectTitle}</h3>
                 <Button_1.default variant="logout" onClick={logoutUser}>Logout</Button_1.default>
             </div>
