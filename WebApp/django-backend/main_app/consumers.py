@@ -11,15 +11,21 @@ from .models import BotResponse, Conversation
 from elevenlabs import play, save, Voice, VoiceSettings
 from elevenlabs.client import ElevenLabs
 
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 
-eleven_labs_client = ElevenLabs(
-  api_key=os.environ['ELEVENLABS_API_KEY'],
-)
-
-
+eleven_labs_client = ElevenLabs(api_key=os.environ['ELEVENLABS_API_KEY'])
 ollama_client = AsyncClient(host='http://3.16.245.247:11434')
+
+#os.environ['hierarchy_context'] = ""
+#os.environ['project_context'] = ""
+os.environ['workspace_rules_prompt'] =   """RULES: YOU ARE AN AI PAIR PROGRAMMER THAT ASSISTS DEVELOPER BY STRUCTURING IDEAS AND GIVING THEM CONCISE ANSWERS WITHOUT UN-NEEDED INTROS.
+                                YOU ARE GOING TO BE GIVEN HIERARCHY OF THE USER'S WORKSPACE. YOU ARE GOIING TO ANALYZE IT THOROUGHLY.
+                                IN SOME OF YOUR RESPONSES YOU MIGHT HAVE TO TELL THE USER TO NAVIGATE TO A SPECIFIC FILE ACCORDING THE HIERARCHY, SO THAT YOU WILL HAVE TO RESPOND AN HTML TAG <a href="SOURCE HERE">FILE NAME HERE</a>.
+                                YOU ARE NOT ALLOWED TO GIVE USER FINISHED CODE. NOW YOU SHOULD GENERATE A FULL CONTEXT OF THE PROJECT. ABIDE BY THE RULES. RULES DONE."""
+
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -33,7 +39,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["user_prompt"]
 
-        
+        message = f"{os.environ['workspace_rules_prompt']} . Here is the user's request: {message}"
+
         end_result = ""
 
         async def get_response():
@@ -77,7 +84,7 @@ class TalkAIConsumer(AsyncWebsocketConsumer):
 
         
         end_result = ""
-        prompt = f"RULES:YOU ARE AN AI PAIR PROGRAMMER. YOU GIVE SUGGESTIONS AND HELP ME THINK IN INNOVATIVE WAY TO COMPLETE MY PROGRAMMING PROJECT. I WANT YOU TO RESPOND AS IF YOU ARE SPEAKING IN A FRIENDLY WAY AS A PAIR PROGRAMMER BE CONCISE AND HELPFUL DO NOT ANSWER WITH LONG TEXT. the following is me speaking to you. RESPOND ACCORDING TO THE RULES : {speech_text}"
+        prompt = f"RULES:YOU ARE AN AI PAIR PROGRAMMER. YOU GIVE SUGGESTIONS AND HELP ME THINK IN INNOVATIVE WAY TO COMPLETE MY PROGRAMMING PROJECT. I WANT YOU TO RESPOND AS IF YOU ARE SPEAKING IN A FRIENDLY WAY AS A PAIR PROGRAMMER BE CONCISE AND HELPFUL DO NOT ANSWER WITH LONG TEXT. HERE IS THE HIERARCHY {hierarchy_context}. The following is me speaking to you. RESPOND ACCORDING TO THE RULES : {speech_text}"
         async def get_response():
             msg = {'role': 'user', 'content': prompt}
             response = await ollama_client.chat(model='llama3:8b', messages=[msg], stream=True)
@@ -117,10 +124,10 @@ class ProjectTitleConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json["workspaceTree"]
-
+        #os.environ['hierarchy_context'] = message
         
         end_result = ""
-        prompt = f"Here is my workspace tree please generate a suitable title for my project YOU ARE STRICTLY PROMPTED TO JUST GIVE ANSWER WITH THE TITLE ONLY, NO INTROS NOTHING ELSE JUST RETURN PROJECT TITLE, DO NOT USE SAME TITLE AS THE MAIN FOLDER, YOUR ANSWER SHOULD CONTAIN ONLY ENGLISH CHARACTERS NO QUOTES OR OTHER SYMBOLS: {message}"
+        prompt = f"Here is my workspace tree please generate a suitable title for my project YOU ARE STRICTLY PROMPTED TO JUST GIVE ANSWER WITH THE TITLE ONLY, NO INTROS NOTHING ELSE JUST RETURN PROJECT TITLE, DO NOT USE SAME TITLE AS THE MAIN FOLDER, YOUR ANSWER SHOULD CONTAIN ONLY ENGLISH CHARACTERS NO QUOTES OR OTHER SYMBOLS, YOU ARE ALLOWED TO ADD SPACES BETWEEN WORDS: {message}"
         async def get_response():
             msg = {'role': 'user', 'content': prompt}
             response = await ollama_client.chat(model='llama3:8b', messages=[msg], stream=True)
@@ -134,4 +141,5 @@ class ProjectTitleConsumer(AsyncWebsocketConsumer):
 
         response = await get_response()
         end_result = await generate_title(response)
+
         await self.send(text_data=json.dumps({"project_title": end_result}))
