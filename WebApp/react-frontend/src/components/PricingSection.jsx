@@ -17,9 +17,6 @@ const PricingSection = () => {
                 <p class="lg:text-2xl text-xl font-normal text-gray-500 text-center mx-12">
                     Choose the plan that's right for you. Whether you're tinkering or looking to scale up, we have a pricing model to fit your needs.
                 </p>
-                <p class="lg:text-2xl text-xl font-normal text-gray-500 text-center mx-12">
-                    Free trial of 25 Smart Requests and 1k Cached Requests.
-                </p>
                 <section class="bg-white">
                     <div class="py-6 px-4 w-full">
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-4">

@@ -51,6 +51,7 @@ export const pricingOptions = [
             "Chatbot",
             "2,048 Token Context",
             "Web Analytics",
+            "Public Mode",
         ],
     },
     {
@@ -69,7 +70,7 @@ export const pricingOptions = [
         class: "lg:md:col-span-1 md:col-span-2",
         title: "Enterprise",
         price: "$200",
-        tip: "Customized for Your Business",
+        tip: "Business Oriented",
         features: [
             "Define System Responses",
             "Unlimited Token Context",
