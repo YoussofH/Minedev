@@ -9,26 +9,26 @@
 >
 > Minedev has the ability to have full context of the whole folder structure of a specific project.
 >
-> Minedev has a chat feature that allows developers to chat with an AI trained model.
+> Minedev has a chat feature that allows developers to chat and talk with an AI trained model.
 >
 > This approach prevents developers from copying and pasting code without understanding the deep details of what they are implementing.
 
 ### User Stories
-- As a developer using Minedev, I want to see a list of all code blocks related to a specific change, so I can understand how the change might affect other parts of my project.
 - As a developer using Minedev, I want to have a conversation with the AI about how to implement a specific feature, so I can get guidance and explore different approaches without directly copying code.
+- As a developer using Minedev, I want to use the AI pair programmer feature that allows me to select the voice of by best friend and speak with him/her, helping me clear my thoughts and take decisions.
 - As a company admin using Minedev, I want to control the level of detail and specific functionalities suggested by the AI in responses to developer queries, so I can ensure the information aligns with our company coding standards and security best practices.
 
 <br><br>
 <!-- Tech stack -->
 <img src="./readme/title3.svg"/>
 
-###  Coffee Express is built using the following technologies:
+###  Minedev is built using the following technologies:
 
-- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
-- For persistent storage (database), the app uses the [Hive](https://hivedb.dev/) package which allows the app to create a custom storage schema and save it to a local database.
-- To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
-  - 🚨 Currently, notifications aren't working on macOS. This is a known issue that we are working to resolve!
-- The app uses the font ["Work Sans"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
+- This project uses the [Django](https://www.djangoproject.com/) Web Framework hosted on a dedicated EC2 instance.
+- For persistent storage (database), the app uses PostgreSQL hosted on AWS RDS service.
+- VS Code exension was built using React JS library.
+- [Llama3](https://llama.meta.com/llama3/) Large Language Model hosted on a dedicated AWS EC2 instance with GPU support. LLM was served using [Ollama](https://ollama.com/).
+- [Eleven Labs](https://elevenlabs.io/) was used for voice cloning and text-to-speech synthesis.
 
 <br><br>
 <!-- UI UX -->
@@ -60,14 +60,6 @@
 
 <!-- Implementation -->
 <img src="./readme/title6.svg"/>
-
-
-### User Screens (Mobile)
-| Login screen  | Register screen | Landing screen | Loading screen |
-| ---| ---| ---| ---|
-| ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
-| Home screen  | Menu Screen | Order Screen | Checkout Screen |
-| ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
 
 ### Admin Screens (Web)
 | Login screen  | Register screen |  Landing screen |
