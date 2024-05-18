@@ -60,7 +60,7 @@
 <!-- Implementation -->
 <img src="./readme/title6.svg"/>
 
-### Admin Screens (Web)
+### Screens (Web/VS Code Extension)
 | Home Page screen  | Chatbot screen |  AI Speech screen |
 | ---| ---| ---|
 | ![Landing](./readme/demo/HomeScreenDemo.png) | ![Chatbot](./readme/demo/ChatDemo.png) | ![AISpeech](./readme/demo/SpeechAIDemo.png) |
