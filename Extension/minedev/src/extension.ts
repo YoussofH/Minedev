@@ -52,7 +52,7 @@ export function activate(context: vscode.ExtensionContext) {
                 if (type === vscode.FileType.Directory) {
                     const subFolderData = await getHierarchicalPaths(fileUri);
                     directoryData.children.push(subFolderData);
-                } else {
+                } else if(item !== ".env") {
                     const readData = await vscode.workspace.fs.readFile(fileUri);
                     const readStr = Buffer.from(readData).toString('utf8');
                     directoryData.children.push({ file_name: item, file_content: readStr }); // Add file as a child
@@ -70,14 +70,14 @@ export function activate(context: vscode.ExtensionContext) {
                 const directoryData = await getHierarchicalPaths(folderUri);
                 const jsonData = JSON.stringify(directoryData, null, 2); // Pretty-print JSON
 
-                const fileUri = folderUri.with({ path: posix.join(folderUri.path, 'workspace_hierarchy.json') });
-                await vscode.workspace.fs.writeFile(fileUri, Buffer.from(jsonData, 'utf8'));
+                //const fileUri = folderUri.with({ path: posix.join(folderUri.path, 'workspace_hierarchy.json') });
+                //await vscode.workspace.fs.writeFile(fileUri, Buffer.from(jsonData, 'utf8'));
 
-                //vscode.window.showInformationMessage('Workspace hierarchy saved to workspace_hierarchy.json');
-                const readData = await vscode.workspace.fs.readFile(fileUri);
-                const readStr = Buffer.from(readData).toString('utf8');
+                //vscode.window.showInformationMessage(jsonData);
+                //const readData = await vscode.workspace.fs.readFile(fileUri);
+                //const readStr = Buffer.from(readData).toString('utf8');
                 //vscode.window.showInformationMessage(readStr);
-                vscode.commands.executeCommand("minedev.vsToReact", { command: "sendWorkspaceTree", body: readStr });
+                vscode.commands.executeCommand("minedev.vsToReact", { command: "sendWorkspaceTree", body: jsonData });
             } catch (error) {
                 vscode.window.showErrorMessage(`Error getting file paths: ${error.message}`);
             }

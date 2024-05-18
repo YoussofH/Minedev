@@ -48,7 +48,7 @@ const ChatPage = ({ vscode }) => {
     let { logoutUser } = (0, react_1.useContext)(AuthContext_1.default);
     const [showAlert, setShowAlert] = (0, react_1.useState)(false);
     const [alertMessage, setAlertMessage] = (0, react_1.useState)('');
-    const [conversationId, setConversationId] = (0, react_1.useState)(3);
+    const [conversationId, setConversationId] = (0, react_1.useState)(4);
     const [dataToSend, setDataToSend] = (0, react_1.useState)('');
     const [messages, setMessages] = (0, react_1.useState)([]);
     const messagesEndRef = (0, react_1.useRef)(null);
@@ -61,7 +61,8 @@ const ChatPage = ({ vscode }) => {
     (0, react_1.useEffect)(() => {
         if (allowAskforTitle) {
             titleSocketRef.current.send(JSON.stringify({
-                'workspaceTree': workspaceTree
+                'workspaceTree': workspaceTree,
+                'conversationID': conversationId
             }));
         }
         setAllowAskforTitle(false);

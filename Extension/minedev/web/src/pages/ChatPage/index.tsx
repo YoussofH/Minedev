@@ -26,7 +26,7 @@ const ChatPage = ({ vscode }) => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
 
-    const [conversationId, setConversationId] = useState(3);
+    const [conversationId, setConversationId] = useState(4);
     const [dataToSend, setDataToSend] = useState('');
     const [messages, setMessages] = useState([]);
     const messagesEndRef = useRef<null | HTMLDivElement>(null)
@@ -41,7 +41,8 @@ const ChatPage = ({ vscode }) => {
     useEffect(() => {
         if (allowAskforTitle) {
             titleSocketRef.current.send(JSON.stringify({
-                'workspaceTree': workspaceTree
+                'workspaceTree': workspaceTree,
+                'conversationID': conversationId
             }));
         }
         setAllowAskforTitle(false);
