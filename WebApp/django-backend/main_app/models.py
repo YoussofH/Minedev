@@ -86,7 +86,7 @@ class Project(models.Model):
 class Conversation(models.Model):
     user = models.ForeignKey(Developer, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    hierarchy = models.TextField(null=True)
+    hierarchy = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

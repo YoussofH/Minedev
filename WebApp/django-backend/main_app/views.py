@@ -10,13 +10,14 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import viewsets
+from rest_framework import serializers
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_profile(request):
     user = request.user
     serializer = DeveloperModelSerializer(user, many=False)
-    return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_200_OK)
 
 
 class BotResponseListViewSet(ModelViewSet):
