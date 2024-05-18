@@ -52,8 +52,7 @@
 
 ###  Architecting Data Excellence: Innovative Database Design Strategies:
 
-- Insert ER Diagram here
-
+![AISpeech](./readme/demo/MinedevDatabaseSchema.png)
 
 <br><br>
 
@@ -64,7 +63,7 @@
 ### Admin Screens (Web)
 | Home Page screen  | Chatbot screen |  AI Speech screen |
 | ---| ---| ---|
-| ![Landing](./readme/demo/HomeScreenDemo.png) | ![fsdaf](./readme/demo/ChatDemo.png) | ![fsdaf](./readme/demo/SpeechAIDemo.png) |
+| ![Landing](./readme/demo/HomeScreenDemo.png) | ![Chatbot](./readme/demo/ChatDemo.png) | ![AISpeech](./readme/demo/SpeechAIDemo.png) |
 
 <br><br>
 
