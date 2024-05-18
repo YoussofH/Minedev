@@ -110,6 +110,18 @@
 
 - This project employs rigorous unit testing methodologies to ensure the reliability and accuracy of code components. By systematically evaluating individual units of the software, we guarantee a robust foundation, identifying and addressing potential issues early in the development process.
 
+`python manage.py test`
+```sh
+Found 5 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 4.719s
+
+OK
+Destroying test database for alias 'default'...
+```
 <br><br>
 
 
