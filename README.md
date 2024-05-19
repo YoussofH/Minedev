@@ -76,7 +76,8 @@
 
 ###  Mastering AI Interaction: Unveiling the Power of Prompt Engineering:
 
-- This project uses advanced prompt engineering techniques to optimize the interaction with natural language processing models. By skillfully crafting input instructions, we tailor the behavior of the models to achieve precise and efficient language understanding and generation for various tasks and preferences.
+- Leveraging advanced prompt engineering methods, this project optimizes the interaction with NLP models. By carefully
+crafting tailored input prompts, we influence the model's behavior, enabling precise and efficient language comprehension and generation for diverse applications and user preferences.
 
 - **Workspace Title generation according to workspace files and directories:** "HERE IS MY WORKSPACE TREE PLEASE GENERATE A SUITABLE TITLE FOR MY PROJECT. YOU ARE STRICTLY PROMPTED TO JUST GIVE AN ANSWER WITH THE TITLE ONLY, NO INTRODUCTIONS NOTHING ELSE IS ALLOWED. JUST RETURN PROJECT TITLE, DO NOT USE SAME TITLE AS THE MAIN FOLDER, YOUR ANSWER SHOULD CONTAIN ONLY ENGLISH CHARACTERS NO QUOTES OR OTHER SYMBOLS, YOU ARE ALLOWED TO ADD SPACES BETWEEN WORDS. IMPORTANT NOTE: TITLE SHOULD BE STRICTLY NO LONGER THAN 3 WORDS: {workspaceTree}"
 
@@ -91,7 +92,7 @@
 
 ###  Efficient AI Deployment: Unleashing the Potential with AWS Integration:
 
-- This project leverages AWS deployment strategies to seamlessly integrate and deploy natural language processing models. With a focus on scalability, reliability, and performance, we ensure that AI applications powered by these models deliver robust and responsive solutions for diverse use cases.
+- Leveraging AWS's deployment capabilities, this project facilitates the seamless integration and deployment of NLP models. With a focus on scalability, reliability, and performance, we empower AI applications fueled by these models to deliver robust and efficient solutions across a broad spectrum of use cases.
 
 - Launched EC2 instance for Django as the backend (connected to the internet).
 
@@ -111,20 +112,21 @@
 
 ###  Precision in Development: Harnessing the Power of Unit Testing:
 
-- This project employs rigorous unit testing methodologies to ensure the reliability and accuracy of code components. By systematically evaluating individual units of the software, we guarantee a robust foundation, identifying and addressing potential issues early in the development process.
+- This project leverages a comprehensive unit testing strategy to verify the functionality and reliability of individual code modules.
+Evaluating these units in isolation allows for early detection and correction of potential issues, fostering a robust software foundation.
 
-`python manage.py test`
-```sh
-Found 5 test(s).
-Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-.....
-----------------------------------------------------------------------
-Ran 5 tests in 4.719s
+- `python manage.py test`
+    ```sh
+    Found 5 test(s).
+    Creating test database for alias 'default'...
+    System check identified no issues (0 silenced).
+    .....
+    ----------------------------------------------------------------------
+    Ran 5 tests in 4.719s
 
-OK
-Destroying test database for alias 'default'...
-```
+    OK
+    Destroying test database for alias 'default'...
+    ```
 <br><br>
 
 
