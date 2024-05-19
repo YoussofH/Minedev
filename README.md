@@ -166,3 +166,8 @@ Evaluating these units in isolation allows for early detection and correction of
     - Press <kbd>CTRL/CMD</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd> then select `Minedev: React View`. This will open the extension on the right side.
 
 Now, you should be able to run Minedev VS Code Extension locally and explore its features.
+
+
+# Video Demo
+
+![MinedevDemo]("./readme/demo/MinedevDemo.mp4")
