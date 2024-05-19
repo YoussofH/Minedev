@@ -41,9 +41,9 @@
 
 
 ### Mockups
-| Home screen  | Menu Screen | Order Screen |
-| ---| ---| ---|
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| Home screen  |
+| ---| 
+| ![Landing](./readme/demo/Mockup-1.png) |
 
 <br><br>
 
@@ -61,9 +61,12 @@
 <img src="./readme/title6.svg"/>
 
 ### Screens (Web/VS Code Extension)
-| Home Page screen  | Chatbot screen |  AI Speech screen |
-| ---| ---| ---|
-| ![Landing](./readme/demo/HomeScreenDemo.png) | ![Chatbot](./readme/demo/ChatDemo.png) | ![AISpeech](./readme/demo/SpeechAIDemo.png) |
+ Home Page screen  
+![Landing](./readme/demo/HomeScreenDemo.png) 
+
+|Chatbot screen |  AI Speech screen |
+| ---| ---|
+| ![Chatbot](./readme/demo/ChatDemo.png) | ![AISpeech](./readme/demo/SpeechAIDemo.png) |
 
 <br><br>
 
