@@ -170,4 +170,4 @@ Now, you should be able to run Minedev VS Code Extension locally and explore its
 
 # Video Demo
 
-![MinedevDemo]("./readme/demo/MinedevDemo.mp4")
+![MinedevDemo](./readme/demo/MinedevDemo.mp4)
