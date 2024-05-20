@@ -218,7 +218,7 @@ Now, you should be able to run Minedev VS Code Extension locally and explore its
 
 # Video Demo
 
- <video width="320" height="240" controls>
+ <video controls>
   <source src="./readme/demo/MinedevDemo.mp4" type="video/mp4">
 </video> 
 
@@ -226,4 +226,4 @@ Now, you should be able to run Minedev VS Code Extension locally and explore its
 
 | Bot Responses |  Register |  Login |
 | ---| ---| ---|
-| <img src="./readme/demo/postman1.png"/> | <img src="./readme/demo/postman2.png"/> | <img src="./readme/demo/postman3.png"/> |
+| <img src="./readme/demo/Postman1.png"/> | <img src="./readme/demo/Postman2.png"/> | <img src="./readme/demo/Postman3.png"/> |
