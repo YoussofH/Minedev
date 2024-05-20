@@ -64,7 +64,7 @@
 
 
 ### Mockups
-| Home screen  |
+| Chatbot screen  |
 | ---| 
 | ![Landing](./readme/demo/Mockup-1.png) |
 
