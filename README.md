@@ -219,3 +219,9 @@ Now, you should be able to run Minedev VS Code Extension locally and explore its
 # Video Demo
 
 ![MinedevDemo](./readme/demo/MinedevDemo.mp4)
+
+# Postman API Demo
+
+| Bot Responses |  Register |  Login |
+| ---| ---| ---|
+| ![postman1](./readme/demo/postman1.png) | ![postman2](./readme/demo/postman2.png) | ![postman3](./readme/demo/postman3.png) |
