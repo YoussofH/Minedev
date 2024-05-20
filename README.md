@@ -84,7 +84,7 @@
 <img src="./readme/title6.svg"/>
 
 ### Screens (Web/VS Code Extension)
- Home Page screen  
+#### Home Page screen  
 ![Landing](./readme/demo/HomeScreenDemo.png) 
 
 |Chatbot screen |  AI Speech screen |
