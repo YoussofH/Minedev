@@ -218,9 +218,7 @@ Now, you should be able to run Minedev VS Code Extension locally and explore its
 
 # Video Demo
 
- <video controls>
-  <source src="./readme/demo/MinedevDemo.mp4" type="video/mp4">
-</video> 
+[./readme/demo/MinedevDemo.mp4](https://github.com/YoussofH/Minedev/blob/main/readme/demo/MinedevDemo.mp4)
 
 # Postman API Demo
 
