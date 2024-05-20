@@ -13,10 +13,33 @@
 >
 > This approach prevents developers from copying and pasting code without understanding the deep details of what they are implementing.
 
-### User Stories
-- As a developer using Minedev, I want to have a conversation with the AI about how to implement a specific feature, so I can get guidance and explore different approaches without directly copying code.
-- As a developer using Minedev, I want to use the AI pair programmer feature that allows me to select the voice of by best friend and speak with him/her, helping me clear my thoughts and take decisions.
-- As a company admin using Minedev, I want to control the level of detail and specific functionalities suggested by the AI in responses to developer queries, so I can ensure the information aligns with our company coding standards and security best practices.
+### Minedev User Stories by User Type
+
+**User Type 1: Developer**
+
+* **Explore Implementation Options:**  
+  * As a developer using Minedev, I want to describe a feature I need to implement, so the AI can suggest relevant code block examples from my project or public repositories. 
+  * This will allow me to explore different approaches and understand how similar functionalities have been implemented before.
+* **Contextual Code Guidance:**  
+  * As a developer using Minedev, I want to select a specific code block within my project and ask the AI to explain its purpose and functionality in the context of the surrounding code. 
+  * This will help me understand existing code better and modify it confidently.
+* **AI Debugging Assistant:**  
+  * As a developer using Minedev, I want to describe an error message I'm encountering, and the AI can suggest relevant code block examples from my project or public repositories that might help fix the issue. 
+  * This will save me time debugging and allow me to learn from common solutions.
+
+**User Type 2: Company Admin**
+
+* **Enforce Coding Standards:**  
+  * As a company admin using Minedev, I want to define a set of coding standards and best practices for my team. 
+  * Minedev should then prioritize code block examples that adhere to these standards when responding to developer queries.
+* **Security Control:**  
+  * As a company admin using Minedev, I want to restrict the AI from suggesting code examples that contain security vulnerabilities or expose sensitive data. 
+  * This will ensure the code used by my developers adheres to security best practices.
+* **Company-Specific Code Examples:**  
+  * As a company admin using Minedev, I want to upload a library of pre-approved code snippets and functionalities specific to our company's codebase. 
+  * Minedev should prioritize suggesting these examples to developers working on projects within our company. 
+
+
 
 <br><br>
 <!-- Tech stack -->
@@ -79,11 +102,11 @@
 - Leveraging advanced prompt engineering methods, this project optimizes the interaction with NLP models. By carefully
 crafting tailored input prompts, we influence the model's behavior, enabling precise and efficient language comprehension and generation for diverse applications and user preferences.
 
-- **Workspace Title generation according to workspace files and directories:** "HERE IS MY WORKSPACE TREE PLEASE GENERATE A SUITABLE TITLE FOR MY PROJECT. YOU ARE STRICTLY PROMPTED TO JUST GIVE AN ANSWER WITH THE TITLE ONLY, NO INTRODUCTIONS NOTHING ELSE IS ALLOWED. JUST RETURN PROJECT TITLE, DO NOT USE SAME TITLE AS THE MAIN FOLDER, YOUR ANSWER SHOULD CONTAIN ONLY ENGLISH CHARACTERS NO QUOTES OR OTHER SYMBOLS, YOU ARE ALLOWED TO ADD SPACES BETWEEN WORDS. IMPORTANT NOTE: TITLE SHOULD BE STRICTLY NO LONGER THAN 3 WORDS: {workspaceTree}"
+- **Workspace Title generation according to workspace files and directories:** "Here is my workspace tree please generate a suitable title for my project. You are strictly prompted to just give an answer with the title only, no introductions nothing else is allowed. Just return project title, do not use same title as the main folder, your answer should contain only english characters no quotes or other symbols, you are allowed to add spaces between words. Important note: title should be strictly no longer than 3 words: {workspaceTree}"
 
-- **AI Pair Programmer speech generation:** "RULES:YOU ARE AN AI PAIR PROGRAMMER. YOU GIVE SUGGESTIONS AND HELP ME THINK IN AN INNOVATIVE WAY TO COMPLETE MY PROGRAMMING PROJECT. I WANT YOU TO RESPOND AS IF YOU ARE SPEAKING IN A FRIENDLY WAY BE CONCISE AND HELPFUL. STICK WITH TWO SENTENCES AS A MAXIMUM RESPONSE. THE FOLLOWING IS ME SPEAKING TO YOU. RESPOND ACCORDING TO THE RULES: {speech_text}"
+- **AI Pair Programmer speech generation:** "Rules: You are an AI pair programmer. You give suggestions and help me think in an innovative way to complete my programming project. I want you to respond as if you are speaking in a friendly way be concise and helpful. Stick with two sentences as a maximum response. The following is me speaking to you. Respond according to the rules: {speech_text}"
 
-- **Chatbot Response generation:** "RULES: YOU ARE AN AI PAIR PROGRAMMER THAT ASSISTS THE DEVELOPER BY STRUCTURING IDEAS AND GIVING THEM CONCISE ANSWERS WITHOUT UNNEEDED INTRODUCTIONS. YOU ARE GOING TO BE GIVEN HIERARCHY OF THE USER'S WORKSPACE, YOU ARE GOING TO ANALYZE IT THOROUGHLY. IN SOME OF YOUR RESPONSES YOU MIGHT HAVE TO TELL THE USER TO NAVIGATE TO A SPECIFIC FILE ACCORDING TO THE HIERARCHY, SO THAT YOU WILL HAVE TO RESPOND USING STRICTLY THE FOLLOWING FORMAT HTML TAG `<a href="FILE PATH HERE">FILE NAME HERE</a>`. NOTE: THE FILE PATH SHOULD ONLY BE RELATED TO THE HIERARCHY AND NOTHING ELSE. YOU ARE NOT ALLOWED TO GIVE THE USER COMPLETE CODE, INSTEAD ASSIST THE USER BY GIVING PROCEDURES OR STEPS SO THAT THE DEVELOPER WOULD DEPEND ON HIS/HER SKILLS TO WRITE THEIR OWN CODE. ABIDE BY THE RULES. HERE IS THE CHAT HISTORY BETWEEN YOU AND THE USER: {chat_context}. RESPOND ACCORDING TO THE RULES. HERE IS THE USER'S REQUEST: {message}"
+- **Chatbot Response generation:** "Rules: You are an AI Pair Programmer that assists the developer by structuring ideas and giving them concise answers without unneeded introductions. You are going to be given hierarchy of the user's workspace, you are going to analyze it thoroughly. In some of your responses you might have to tell the user to navigate to a specific file according to the hierarchy, so that you will have to respond using strictly the following format HTML tag <a href="FILE PATH HERE">FILE NAME HERE</a>. Note: The file path should only be related to the hierarchy and nothing else. You are not allowed to give the user complete code, instead assist the user by giving procedures or steps so that the developer would depend on his/her skills to write their own code. Abide by the rules. Here is the chat history between you and the user: {chat_context}. Respond according to the rules. Here is the user's request: {message}"
 
 <br><br>
 
