@@ -118,10 +118,35 @@ crafting tailored input prompts, we influence the model's behavior, enabling pre
 - Leveraging AWS's deployment capabilities, this project facilitates the seamless integration and deployment of NLP models. With a focus on scalability, reliability, and performance, we empower AI applications fueled by these models to deliver robust and efficient solutions across a broad spectrum of use cases.
 
 - Launched EC2 instance for Django as the backend (connected to the internet).
+    
+    - `sudo apt install python3-pip`
+    - `cd django-backend`
+    - `python -m venv venv`
+    - `source venv/bin/activate`
+    - `pip install -r requirements.txt`
+    - `python manage.py runserver 0.0.0.0:8000`
+    
 
 - Launched RDS service to host PostgreSQL and connected it to the backend.
 
 - Launched EC2 service 8 vCPU with GPU to run the Llama3 LLM.
+
+    - Launch EC2 instance and choose "Deep Learning Nvidia Driver AMI GPU TensorFlow".
+    - Instance type "g4dn.xlarge" 4 vCPU or "g4dn.2xlarge" 8 vCPU
+    - Expose Ollama port 11434
+    - Install Ollama
+    - `start ollama.service`
+    - Download Llama3 LLM `ollama pull llama3:8b`
+    - Allow external connection:
+        - check `netstat -a | grep 11434`
+        - `systemctl edit ollama.service`
+            ```
+            [Service]
+            Environment="OLLAMA_HOST=0.0.0.0"
+            ```
+        - `systemctl daemon-reload`
+        - `systemctl restart ollama`
+        - check `netstat -a | grep 11434`
 
 - Hosted React app [www.mine-dev.com](https://www.mine-dev.com) using Amplify AWS service.
 
