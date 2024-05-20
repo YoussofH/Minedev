@@ -121,7 +121,7 @@ crafting tailored input prompts, we influence the model's behavior, enabling pre
 
 - Launched RDS service to host PostgreSQL and connected it to the backend.
 
-- Launched EC2 service 8vCPU with GPU to run the Llama3 LLM.
+- Launched EC2 service 8 vCPU with GPU to run the Llama3 LLM.
 
 - Hosted React app [www.mine-dev.com](https://www.mine-dev.com) using Amplify AWS service.
 
