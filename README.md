@@ -216,11 +216,11 @@ Evaluating these units in isolation allows for early detection and correction of
 Now, you should be able to run Minedev VS Code Extension locally and explore its features.
 
 
-# Video Demo
+## Video Demo
 
 [./readme/demo/MinedevDemo.mp4](https://github.com/YoussofH/Minedev/blob/main/readme/demo/MinedevDemo.mp4)
 
-# Postman API Demo
+## Postman API Demo
 
 | Bot Responses |  Register |  Login |
 | ---| ---| ---|
